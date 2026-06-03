@@ -44,6 +44,14 @@ const LETTER_COLORS = [
 
 const VOWELS = ['A', 'E', 'I', 'O', 'U'];
 
+const SONG_ART_CLASSES = {
+    'abc-rock': 'song-art-rock',
+    nebula: 'song-art-nebula',
+    'rocket-rhyme': 'song-art-rocket',
+    'planet-party': 'song-art-planet',
+    'vowel-pop': 'song-art-vowels'
+};
+
 const SONG_LIBRARY = {
     'abc-rock': {
         title: 'The ABC Song',
@@ -1365,7 +1373,7 @@ function initSongCards() {
         const title = card.querySelector('strong');
         const detail = card.querySelector('small');
         if (art) {
-            art.className = `song-art ${songId === 'planet-party' ? 'song-art-planet' : songId === 'rocket-rhyme' ? 'song-art-rocket' : songId === 'abc-rock' ? 'song-art-rock' : 'song-art-nebula'}`;
+            art.className = `song-art ${SONG_ART_CLASSES[songId] || 'song-art-nebula'}`;
             art.textContent = song.art;
         }
         if (title) title.textContent = song.title;
