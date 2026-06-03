@@ -1614,8 +1614,8 @@ function bindEvents() {
     window.addEventListener('resize', updateNavFromScroll);
     window.addEventListener('hashchange', updateNavFromScroll);
 
-    // Logo click -> home
-    $('#logo').addEventListener('click', () => navigateToSection('home'));
+    // Logo click -> refresh
+    $('#logo').addEventListener('click', () => window.location.reload());
 
     // Sound toggle
     $('#sound-toggle').addEventListener('click', () => {

@@ -1868,6 +1868,74 @@ img {
     }
 }
 
+/* ---------- Navbar Logo Refresh Button ---------- */
+.site-header .logo {
+    display: inline-flex !important;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 6px 4px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.site-header .logo-icon {
+    display: flex !important;
+    gap: 2px;
+}
+
+.site-header .logo-icon span {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.site-header .logo-text span:first-child {
+    color: #ffb189;
+    font-size: clamp(26px, 2.7vw, 36px);
+    line-height: 1;
+}
+
+.site-header .logo:hover .logo-icon span,
+.site-header .logo:focus-visible .logo-icon span {
+    transform: translateY(-2px) rotate(0deg) scale(1.07) !important;
+}
+
+.site-header .logo:hover .logo-text span:first-child,
+.site-header .logo:focus-visible .logo-text span:first-child {
+    filter: drop-shadow(0 0 10px rgba(255, 177, 137, 0.48));
+}
+
+.site-header .logo:active {
+    transform: scale(0.96);
+}
+
+.site-header .logo:focus-visible {
+    outline: 3px solid rgba(255, 242, 106, 0.86);
+    outline-offset: 5px;
+    border-radius: 12px;
+}
+
+@media (max-width: 760px) {
+    .site-header .logo {
+        display: inline-flex !important;
+    }
+
+    .site-header .logo-icon span {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+
+    .site-header .logo-text span:first-child {
+        font-size: 24px;
+    }
+}
+
 /* Print */
 @media print {
     .site-header,
