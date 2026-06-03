@@ -5289,7 +5289,7 @@ canvas {
 /* ---------- Stable Alphabet Orbit Slots ---------- */
 @media (min-width: 901px) {
     .space-letter-field {
-        min-height: 610px;
+        min-height: 640px;
     }
 
     .orbit {
@@ -5298,21 +5298,21 @@ canvas {
         transform: translate(-50%, -50%) rotate(-10deg);
     }
 
-    .orbit-1 { width: 44%; height: 28%; }
-    .orbit-2 { width: 50%; height: 30%; }
-    .orbit-3 { width: 62%; height: 38%; }
-    .orbit-4 { width: 76%; height: 48%; }
+    .orbit-1 { width: 40%; height: 26%; }
+    .orbit-2 { width: 54%; height: 34%; }
+    .orbit-3 { width: 68%; height: 44%; }
+    .orbit-4 { width: 84%; height: 54%; }
 
     .sun-face {
         left: 55%;
         top: 60%;
-        width: 156px;
-        height: 156px;
+        width: 148px;
+        height: 148px;
         transform: translate(-50%, -50%) !important;
     }
 
     .space-home .letter-btn {
-        --tile-size: 38px;
+        --tile-size: 32px;
         width: var(--tile-size) !important;
         height: var(--tile-size) !important;
         animation: none !important;
@@ -5323,32 +5323,32 @@ canvas {
         transform: translate(-50%, -50%) scale(1.08) rotate(var(--lr, 0deg));
     }
 
-    .space-home .letter-btn:nth-child(1) { --lx: 19.3%; --ly: 51.8%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(2) { --lx: 25.9%; --ly: 44.6%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(3) { --lx: 36.0%; --ly: 39.2%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(4) { --lx: 48.4%; --ly: 36.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(5) { --lx: 61.6%; --ly: 36.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(6) { --lx: 74.0%; --ly: 39.2%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(7) { --lx: 84.1%; --ly: 44.6%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(8) { --lx: 90.7%; --ly: 51.8%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(9) { --lx: 84.9%; --ly: 55.1%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(10) { --lx: 84.9%; --ly: 64.9%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(11) { --lx: 76.9%; --ly: 73.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(12) { --lx: 63.0%; --ly: 78.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(13) { --lx: 47.0%; --ly: 78.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(14) { --lx: 33.1%; --ly: 73.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(15) { --lx: 25.1%; --ly: 64.9%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(16) { --lx: 30.4%; --ly: 57.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(17) { --lx: 35.8%; --ly: 50.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(18) { --lx: 46.4%; --ly: 45.9%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(19) { --lx: 63.6%; --ly: 45.9%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(20) { --lx: 74.2%; --ly: 50.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(21) { --lx: 79.6%; --ly: 57.4%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(22) { --lx: 74.9%; --ly: 65.9%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(23) { --lx: 60.7%; --ly: 73.5%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(24) { --lx: 42.4%; --ly: 71.5%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(25) { --lx: 35.1%; --ly: 54.1%; --lr: 0deg; }
-    .space-home .letter-btn:nth-child(26) { --lx: 74.9%; --ly: 54.1%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(1) { --lx: 15%; --ly: 50%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(2) { --lx: 21%; --ly: 37%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(3) { --lx: 31%; --ly: 29%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(4) { --lx: 43%; --ly: 25%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(5) { --lx: 56%; --ly: 25%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(6) { --lx: 69%; --ly: 29%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(7) { --lx: 80%; --ly: 36%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(8) { --lx: 90%; --ly: 47%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(9) { --lx: 84%; --ly: 57%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(10) { --lx: 88%; --ly: 68%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(11) { --lx: 79%; --ly: 78%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(12) { --lx: 66%; --ly: 84%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(13) { --lx: 51%; --ly: 85%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(14) { --lx: 36%; --ly: 81%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(15) { --lx: 24%; --ly: 72%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(16) { --lx: 21%; --ly: 60%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(17) { --lx: 30%; --ly: 49%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(18) { --lx: 40%; --ly: 42%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(19) { --lx: 58%; --ly: 40%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(20) { --lx: 70%; --ly: 44%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(21) { --lx: 76%; --ly: 56%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(22) { --lx: 71%; --ly: 68%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(23) { --lx: 59%; --ly: 74%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(24) { --lx: 45%; --ly: 71%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(25) { --lx: 34%; --ly: 64%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(26) { --lx: 69%; --ly: 53%; --lr: 0deg; }
 }
 
 .letter-modal .big-letter {
