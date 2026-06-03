@@ -5140,3 +5140,24 @@ canvas {
         inset 0 3px 5px rgba(255, 255, 255, 0.38),
         inset 0 -5px 0 rgba(0, 0, 0, 0.16);
 }
+
+.space-home .letter-btn {
+    color: transparent;
+    font-size: 0;
+    line-height: 1;
+    text-shadow: none !important;
+}
+
+.space-home .letter-btn::after {
+    content: attr(data-letter);
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    font-family: "Arial Rounded MT Bold", "Nunito", Arial, sans-serif;
+    font-size: calc(var(--tile-size, var(--ls, 70px)) * 0.64);
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
