@@ -5081,3 +5081,62 @@ body {
         justify-content: center;
     }
 }
+
+/* ---------- Embed Rendering Polish ---------- */
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+}
+
+img,
+canvas {
+    image-rendering: auto;
+}
+
+.space-home,
+.space-scene,
+.space-home .letter-btn,
+.sun-face,
+.rocket-buddy,
+.space-orb {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.space-stars span::before {
+    inset: 0;
+    border-radius: 50%;
+    background: #d8f7ff;
+    box-shadow: 0 0 10px rgba(216, 247, 255, 0.58);
+}
+
+.space-stars span::after {
+    content: none;
+}
+
+.space-stars span:nth-child(2n)::before {
+    background: #b8f269;
+    box-shadow: 0 0 9px rgba(184, 242, 105, 0.5);
+}
+
+.space-stars span:nth-child(3n)::before {
+    background: #ffb097;
+    box-shadow: 0 0 9px rgba(255, 176, 151, 0.46);
+}
+
+.space-home .letter-btn {
+    -webkit-text-stroke: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.42);
+    box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.28),
+        inset 0 3px 5px rgba(255, 255, 255, 0.38),
+        inset 0 -5px 0 rgba(0, 0, 0, 0.16);
+}
+
+.space-home .letter-btn:hover {
+    box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.58),
+        inset 0 3px 5px rgba(255, 255, 255, 0.38),
+        inset 0 -5px 0 rgba(0, 0, 0, 0.16);
+}
