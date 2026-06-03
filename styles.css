@@ -5161,3 +5161,7 @@ canvas {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.sing-section .song-card-wide::before {
+    content: none !important;
+}
