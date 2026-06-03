@@ -4618,7 +4618,12 @@ body {
 
 .games-section .game-card[data-game="bubbles"] { grid-area: pop; }
 .games-section .game-card[data-game="matching"] { grid-area: match; }
-.games-section .game-card[data-game="order"] { grid-area: trace; }
+.games-section .game-card[data-game="order"] {
+    grid-area: trace;
+    width: 100%;
+    max-width: 407px;
+    justify-self: center;
+}
 
 .games-section .mission-card,
 .games-section .game-card {
@@ -5164,4 +5169,12 @@ canvas {
 
 .sing-section .song-card-wide::before {
     content: none !important;
+}
+
+@media (min-width: 761px) {
+    .games-section .games-grid {
+        grid-template-areas:
+            "pop match"
+            "trace trace";
+    }
 }
