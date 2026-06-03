@@ -5171,6 +5171,10 @@ canvas {
     content: none !important;
 }
 
+#nav-learn {
+    display: none !important;
+}
+
 @media (min-width: 761px) {
     .games-section .games-grid {
         grid-template-areas:
