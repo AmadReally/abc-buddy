@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Buddy 🌟 — Learn Your ABCs!</title>
+    <meta name="description" content="ABC Buddy is a fun, interactive alphabet learning app for kids ages 4-7. Learn letters, sounds, and words through play!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>">
+</head>
+<body>
+    <!-- Floating decorations -->
+    <div class="floating-decorations" aria-hidden="true">
+        <div class="floating-star" style="--delay: 0s; --x: 5%; --y: 20%;">⭐</div>
+        <div class="floating-star" style="--delay: 2s; --x: 90%; --y: 15%;">✨</div>
+        <div class="floating-star" style="--delay: 4s; --x: 15%; --y: 70%;">🌟</div>
+        <div class="floating-star" style="--delay: 1s; --x: 80%; --y: 60%;">⭐</div>
+        <div class="floating-star" style="--delay: 3s; --x: 50%; --y: 85%;">✨</div>
+        <div class="floating-star" style="--delay: 5s; --x: 70%; --y: 30%;">🌟</div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <div class="logo" id="logo">
+                <div class="logo-icon">
+                    <span class="logo-a">A</span>
+                    <span class="logo-b">B</span>
+                    <span class="logo-c">C</span>
+                </div>
+                <div class="logo-text">
+                    <span>Buddy</span>
+                    <span class="logo-star">🌟</span>
+                </div>
+            </div>
+            <nav class="main-nav" id="main-nav">
+                <button class="nav-btn active" data-section="home" id="nav-home">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Home</span>
+                </button>
+                <button class="nav-btn" data-section="learn" id="nav-learn">
+                    <span class="nav-icon">🔤</span>
+                    <span class="nav-label">Letters</span>
+                </button>
+                <button class="nav-btn" data-section="games" id="nav-games">
+                    <span class="nav-icon">🎮</span>
+                    <span class="nav-label">Games</span>
+                </button>
+                <button class="nav-btn" data-section="sing" id="nav-sing">
+                    <span class="nav-icon">🎵</span>
+                    <span class="nav-label">Sing</span>
+                </button>
+                <button class="nav-btn" data-section="ebook" id="nav-ebook">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-label">E-Book</span>
+                </button>
+            </nav>
+            <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound">
+                <span class="sound-on">🔊</span>
+                <span class="sound-off" style="display:none;">🔇</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Space Odyssey Home -->
+    <section class="hero-section space-home" id="hero-section">
+        <div class="space-stars" aria-hidden="true">
+            <span style="--x:8%;--y:12%;--s:46px;"></span>
+            <span style="--x:18%;--y:7%;--s:14px;"></span>
+            <span style="--x:78%;--y:8%;--s:9px;"></span>
+            <span style="--x:88%;--y:38%;--s:36px;"></span>
+            <span style="--x:16%;--y:84%;--s:34px;"></span>
+            <span style="--x:91%;--y:72%;--s:28px;"></span>
+            <span style="--x:73%;--y:86%;--s:24px;"></span>
+        </div>
+
+        <div class="space-orb planet planet-left" aria-hidden="true"></div>
+        <div class="space-orb planet planet-right" aria-hidden="true"></div>
+        <div class="space-orb planet planet-bottom" aria-hidden="true"></div>
+
+        <div class="space-scene">
+            <h1 class="space-title">SPACE ODYSSEY ALPHABET HUB</h1>
+
+            <div class="space-letter-field" id="alphabet-section">
+                <div class="orbit orbit-1" aria-hidden="true"></div>
+                <div class="orbit orbit-2" aria-hidden="true"></div>
+                <div class="orbit orbit-3" aria-hidden="true"></div>
+                <div class="orbit orbit-4" aria-hidden="true"></div>
+
+                <div class="sun-face" aria-hidden="true">
+                    <div class="sun-rays"></div>
+                    <div class="sun-core">
+                        <span class="sun-eye sun-eye-left"></span>
+                        <span class="sun-eye sun-eye-right"></span>
+                        <span class="sun-smile"></span>
+                    </div>
+                </div>
+
+                <div class="rocket-buddy" aria-hidden="true">
+                    <div class="rocket-flame"></div>
+                    <div class="rocket-body">
+                        <span class="rocket-window"></span>
+                        <span class="rocket-fin rocket-fin-left"></span>
+                        <span class="rocket-fin rocket-fin-right"></span>
+                    </div>
+                    <div class="astro-star">
+                        <img src="assets/mascot.png" alt="">
+                    </div>
+                </div>
+
+                <div class="speech-bubble" id="mascot-speech">
+                    <p>Hi explorer! Ready for a cosmic alphabet adventure? Pick a glowing letter to blast off!</p>
+                </div>
+                <img class="speech-logo" src="assets/mascot.png" alt="" aria-hidden="true">
+
+                <div class="alphabet-grid" id="alphabet-grid">
+                    <!-- Letters generated by JS -->
+                </div>
+            </div>
+
+            <p class="space-instruction">Tap a glowing letter to explore its cosmic sound and learn a space word!</p>
+        </div>
+    </section>
+
+    <!-- Old Hero Section -->
+    <section class="hero-section old-home" id="old-hero-section" aria-hidden="true">
+        <div class="hero-scene">
+            <div class="hero-clouds">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="cloud cloud-3"></div>
+            </div>
+            <div class="hero-content">
+                <div class="mascot-container" id="mascot">
+                    <img src="assets/mascot.png" alt="ABC Buddy Star Mascot" class="mascot-img">
+                    <div class="mascot-speech" id="old-mascot-speech">
+                        <p>Hi there, friend! 👋 Ready to learn your ABCs? Pick a letter below!</p>
+                        <div class="speech-tail"></div>
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-word title-w1">Learn</span>
+                        <span class="title-word title-w2">Your</span>
+                        <span class="title-word title-w3">ABCs!</span>
+                    </h1>
+                    <p class="hero-subtitle">Tap a letter to start the fun! 🎈</p>
+                </div>
+            </div>
+            <div class="hero-ground">
+                <div class="hill hill-back"></div>
+                <div class="hill hill-front"></div>
+                <div class="grass-row">
+                    <div class="grass-blade" style="--i:1"></div>
+                    <div class="grass-blade" style="--i:2"></div>
+                    <div class="grass-blade" style="--i:3"></div>
+                    <div class="grass-blade" style="--i:4"></div>
+                    <div class="grass-blade" style="--i:5"></div>
+                    <div class="grass-blade" style="--i:6"></div>
+                    <div class="grass-blade" style="--i:7"></div>
+                    <div class="grass-blade" style="--i:8"></div>
+                </div>
+                <div class="flower flower-1">🌸</div>
+                <div class="flower flower-2">🌼</div>
+                <div class="flower flower-3">🌻</div>
+                <div class="flower flower-4">🌷</div>
+            </div>
+            <img src="assets/hero-banner.png" alt="" class="hero-banner-bg" aria-hidden="true">
+        </div>
+    </section>
+
+    <!-- Old Alphabet Grid Section -->
+    <section class="alphabet-section old-alphabet" id="old-alphabet-section" aria-hidden="true">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-icon">🔤</span>
+                Pick a Letter!
+            </h2>
+            <p class="section-subtitle">Tap any letter to hear its sound and learn a word!</p>
+        </div>
+        <div class="alphabet-grid" id="old-alphabet-grid">
+            <!-- Letters generated by JS -->
+        </div>
+    </section>
+
+    <!-- Letter Detail Modal -->
+    <div class="letter-modal" id="letter-modal" role="dialog" aria-hidden="true">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+            <div class="modal-letter-display" id="modal-letter-display">
+                <div class="big-letter" id="big-letter">A</div>
+                <div class="letter-case-toggle">
+                    <button class="case-btn active" id="uppercase-btn">ABC</button>
+                    <button class="case-btn" id="lowercase-btn">abc</button>
+                </div>
+            </div>
+            <div class="modal-info">
+                <div class="letter-sound" id="letter-sound">
+                    <span class="sound-label">Sound:</span>
+                    <span class="sound-text" id="sound-text">"Auh"</span>
+                    <button class="play-sound-btn" id="play-sound-btn">🔊 Hear it!</button>
+                </div>
+                <div class="letter-word" id="letter-word">
+                    <div class="word-emoji" id="word-emoji">🍎</div>
+                    <div class="word-text">
+                        <span class="word-label" id="word-label">A is for Apple!</span>
+                        <span class="word-desc" id="word-desc">Crunchy, red, and yummy!</span>
+                    </div>
+                </div>
+                <div class="letter-action" id="letter-action">
+                    <p class="action-text" id="action-text">Can you say A?</p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-prev" id="btn-prev">⬅️ Back</button>
+                    <button class="btn-practice" id="btn-practice">✏️ Trace It!</button>
+                    <button class="btn-next" id="btn-next">Next ➡️</button>
+                </div>
+            </div>
+            <!-- Tracing Canvas -->
+            <div class="tracing-area" id="tracing-area" style="display:none;">
+                <h3 class="tracing-title">Trace the letter!</h3>
+                <canvas id="trace-canvas" width="300" height="300"></canvas>
+                <div class="tracing-buttons">
+                    <button class="btn-clear" id="btn-clear">🗑️ Clear</button>
+                    <button class="btn-done" id="btn-done">✅ Done!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Games Section -->
+    <section class="games-section section-screen" id="games-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-icon">🎮</span>
+                Choose a Mission!
+            </h2>
+            <p class="section-subtitle">Ready to play? Pick a game to train your space brain!</p>
+        </div>
+        <div class="section-helper">
+            <img src="assets/mascot.png" alt="" aria-hidden="true">
+            <div class="helper-bubble">Hi explorer! Which game should we play next?</div>
+        </div>
+        <div class="games-grid" id="games-grid">
+            <div class="game-card mission-card" id="game-quiz" data-game="quiz">
+                <div class="game-card-bg"></div>
+                <div class="game-card-content">
+                    <div class="game-card-icon">?</div>
+                    <h3 class="game-card-title">Letter Quiz</h3>
+                    <p class="game-card-desc">Choose the letter that starts each word.</p>
+                    <span class="game-card-badge free">QUIZ</span>
+                </div>
+            </div>
+            <div class="game-card mission-card" id="game-bubbles" data-game="bubbles">
+                <div class="game-card-bg"></div>
+                <div class="game-card-content">
+                    <div class="game-card-icon">A</div>
+                    <h3 class="game-card-title">Phonics Pop</h3>
+                    <p class="game-card-desc">Pop the target sound.</p>
+                    <span class="game-card-badge">A A A</span>
+                </div>
+            </div>
+            <div class="game-card mission-card" id="game-matching" data-game="matching">
+                <div class="game-card-bg"></div>
+                <div class="game-card-content">
+                    <div class="game-card-icon">⭐</div>
+                    <h3 class="game-card-title">Letter Match</h3>
+                    <p class="game-card-desc">Pair letters with pictures.</p>
+                    <span class="game-card-badge free">MATCH</span>
+                </div>
+            </div>
+            <div class="game-card mission-card" id="game-order" data-game="order">
+                <div class="game-card-bg"></div>
+                <div class="game-card-content">
+                    <div class="game-card-icon">1</div>
+                    <h3 class="game-card-title">Star Track</h3>
+                    <p class="game-card-desc">Put letters in orbit order.</p>
+                    <span class="game-card-badge">ORDER</span>
+                </div>
+            </div>
+            <div class="game-card mission-card" id="game-memory" data-game="memory">
+                <div class="game-card-bg"></div>
+                <div class="game-card-content">
+                    <div class="game-card-icon">Aa</div>
+                    <h3 class="game-card-title">Memory Cards</h3>
+                    <p class="game-card-desc">Find matching letter pairs.</p>
+                    <span class="game-card-badge free">MEMORY</span>
+                </div>
+            </div>
+            <div class="game-card mission-card" id="game-color" data-game="color">
+                <div class="game-card-bg"></div>
+                <div class="game-card-content">
+                    <div class="game-card-icon">✦</div>
+                    <h3 class="game-card-title">Color Letters</h3>
+                    <p class="game-card-desc">Paint bright alphabet shapes.</p>
+                    <span class="game-card-badge">ART</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Play Area (hidden by default) -->
+    <section class="game-play-area" id="game-play-area" style="display:none;">
+        <div class="game-header">
+            <button class="game-back-btn" id="game-back-btn">⬅️ Back to Games</button>
+            <div class="game-score" id="game-score">⭐ Score: <span id="score-value">0</span></div>
+        </div>
+        <div class="game-container" id="game-container">
+            <!-- Games dynamically inserted here -->
+        </div>
+        <div class="game-feedback" id="game-feedback" style="display:none;">
+            <div class="feedback-content" id="feedback-content"></div>
+        </div>
+    </section>
+
+    <!-- Sing Along Section -->
+    <section class="sing-section section-screen" id="sing-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-icon">🎵</span>
+                Cosmic Sing-Along
+            </h2>
+            <p class="section-subtitle">Choose a song and let's spin the galaxy together!</p>
+        </div>
+        <div class="section-helper sing-helper">
+            <div class="helper-bubble">Time to make some cosmic noise!</div>
+            <img src="assets/mascot.png" alt="" aria-hidden="true">
+        </div>
+        <div class="sing-container">
+        <div class="song-library" aria-label="Song library">
+                <button class="song-card" type="button" id="sing-card-play">
+                    <span class="song-art song-art-rock">▶</span>
+                    <strong>The ABC Rock</strong>
+                    <small>2:30</small>
+                </button>
+                <button class="song-card" type="button" id="sing-card-slow">
+                    <span class="song-art song-art-nebula">A B C</span>
+                    <strong>Nebula Letters</strong>
+                    <small>Slow mode</small>
+                </button>
+                <button class="song-card" type="button" id="sing-card-rhyme">
+                    <span class="song-art song-art-rocket">▶</span>
+                    <strong>Rocket Rhymes</strong>
+                    <small>1:45</small>
+                </button>
+                <div class="song-card song-card-wide" aria-hidden="true">
+                    <span class="song-art song-art-planet">☀</span>
+                    <strong>Planet Party Groove</strong>
+                    <small>Bonus track</small>
+                </div>
+                <div class="song-card song-card-locked" aria-hidden="true">
+                    <span class="lock-icon">🔒</span>
+                    <strong>Unlock More Songs!</strong>
+                    <small>Complete missions to reveal new cosmic tracks.</small>
+                </div>
+            </div>
+            <div class="karaoke-display" id="karaoke-display">
+                <div class="karaoke-line" id="karaoke-line">
+                    Press play to start singing! 🎤
+                </div>
+            </div>
+            <div class="sing-letters" id="sing-letters">
+                <!-- Animated letter display during song -->
+            </div>
+            <div class="sing-controls">
+                <button class="sing-btn" id="sing-play-btn">
+                    <span class="btn-icon">▶️</span>
+                    <span>Sing!</span>
+                </button>
+                <button class="sing-btn sing-btn-stop" id="sing-stop-btn">
+                    <span class="btn-icon">⏹️</span>
+                    <span>Stop</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- E-Book Section -->
+    <section class="ebook-section section-screen" id="ebook-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-icon">📖</span>
+                Story E-Book
+            </h2>
+            <p class="section-subtitle">Read, explore, and enjoy the flipbook together.</p>
+        </div>
+        <div class="ebook-reader">
+            <iframe
+                class="ebook-frame"
+                id="ebook-frame"
+                src="https://anyflip.com/rvxmt/obzp/"
+                title="ABC Buddy E-Book"
+                loading="lazy"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="ebook-actions">
+            <div class="ebook-qr-card">
+                <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fanyflip.com%2Frvxmt%2Fobzp%2F"
+                    alt="QR code for ABC Buddy e-book"
+                    class="ebook-qr">
+                <span>Scan to read</span>
+            </div>
+            <a
+                class="ebook-open-link"
+                href="https://anyflip.com/rvxmt/obzp/"
+                target="_blank"
+                rel="noopener noreferrer">
+                Open e-book
+            </a>
+        </div>
+    </section>
+
+    <!-- Fun Facts Section -->
+    <section class="facts-section" id="facts-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-icon">💡</span>
+                Did You Know?
+            </h2>
+        </div>
+        <div class="facts-carousel" id="facts-carousel">
+            <div class="fact-card active" id="fact-1">
+                <div class="fact-emoji">🐜</div>
+                <p class="fact-text">The letter A looks like an upside-down ant head!</p>
+            </div>
+            <div class="fact-card" id="fact-2">
+                <div class="fact-emoji">📚</div>
+                <p class="fact-text">There are 26 letters in the alphabet!</p>
+            </div>
+            <div class="fact-card" id="fact-3">
+                <div class="fact-emoji">🌍</div>
+                <p class="fact-text">The letter E is used the most in English!</p>
+            </div>
+            <div class="fact-card" id="fact-4">
+                <div class="fact-emoji">🎨</div>
+                <p class="fact-text">Letters can be big (A) or small (a)!</p>
+            </div>
+        </div>
+        <div class="fact-dots" id="fact-dots">
+            <button class="fact-dot active" data-fact="0"></button>
+            <button class="fact-dot" data-fact="1"></button>
+            <button class="fact-dot" data-fact="2"></button>
+            <button class="fact-dot" data-fact="3"></button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-mascot">
+                <img src="assets/mascot.png" alt="" class="footer-mascot-img" aria-hidden="true">
+            </div>
+            <div class="footer-text">
+                <p class="footer-tagline">Learning is an adventure! 🚀</p>
+                <p class="footer-copy">ABC Buddy © 2026 — Made with ❤️ for little learners</p>
+            </div>
+        </div>
+        <div class="footer-wave" aria-hidden="true">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,30 1440,60 L1440,0 L0,0 Z" fill="var(--bg-main)"></path>
+            </svg>
+        </div>
+    </footer>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- Parents Modal -->
+    <div class="parents-modal" id="parents-modal" style="display:none;">
+        <div class="parents-overlay" id="parents-overlay"></div>
+        <div class="parents-content">
+            <button class="modal-close" id="parents-close">✕</button>
+            <h2>👨‍👩‍👧 For Parents & Teachers</h2>
+            <div class="parents-info">
+                <div class="info-card">
+                    <h3>🎯 About ABC Buddy</h3>
+                    <p>ABC Buddy is designed for children ages 4-7 who are learning the alphabet. Each interaction is carefully crafted to be age-appropriate, encouraging, and educational.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🛡️ Safety First</h3>
+                    <p>All content is child-safe. No external links, no advertisements, no data collection. Just pure learning fun!</p>
+                </div>
+                <div class="info-card">
+                    <h3>📖 Learning Goals</h3>
+                    <ul>
+                        <li>Letter recognition (A-Z)</li>
+                        <li>Letter sounds (phonics)</li>
+                        <li>Letter-word associations</li>
+                        <li>Fine motor skills (tracing)</li>
+                        <li>Memory and matching</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>💡 Tips</h3>
+                    <ul>
+                        <li>Let your child explore at their own pace</li>
+                        <li>Celebrate every attempt, not just correct answers</li>
+                        <li>Try the sing-along section together</li>
+                        <li>Limit screen time to 15-20 minute sessions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "abc-buddy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "start:3000": "node server.js",
+    "start:5500": "node server.js 5500",
+    "start:8080": "node server.js 8080"
+  }
+}
