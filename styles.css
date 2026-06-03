@@ -5188,3 +5188,19 @@ canvas {
         justify-self: center !important;
     }
 }
+
+.sing-section .song-library {
+    justify-items: center;
+}
+
+.sing-section .song-card {
+    width: 100%;
+    text-align: center;
+}
+
+.sing-section .song-card strong,
+.sing-section .song-card small {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+}
