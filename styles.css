@@ -5181,4 +5181,10 @@ canvas {
             "pop match"
             "trace trace";
     }
+
+    .games-section .game-card[data-game="order"] {
+        grid-column: 1 / -1 !important;
+        width: min(407px, 100%) !important;
+        justify-self: center !important;
+    }
 }
