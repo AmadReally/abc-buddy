@@ -5838,3 +5838,138 @@ canvas {
         left: -58px;
     }
 }
+
+/* ---------- Phone Layout Alignment ---------- */
+@media (max-width: 620px) {
+    .space-letter-field {
+        min-height: 430px;
+    }
+
+    .space-home .alphabet-grid {
+        inset: auto;
+        left: -8%;
+        top: 145px;
+        width: 116%;
+        height: calc(71.1vw - 25.5px);
+    }
+
+    .orbit {
+        left: 56%;
+        top: calc(129.7px + 42.66vw);
+        transform: translate(-50%, -50%) rotate(-10deg);
+    }
+
+    .orbit-1 {
+        width: 46.4%;
+        height: calc(18.49vw - 6.67px);
+    }
+
+    .orbit-2 {
+        width: 62.64%;
+        height: calc(24.17vw - 8.71px);
+    }
+
+    .orbit-3 {
+        width: 78.88%;
+        height: calc(31.29vw - 11.28px);
+    }
+
+    .orbit-4 {
+        width: 97.44%;
+        height: calc(38.4vw - 13.83px);
+    }
+
+    .sun-face {
+        left: 56%;
+        top: calc(129.7px + 42.66vw);
+        width: clamp(58px, 15vw, 72px);
+        height: clamp(58px, 15vw, 72px);
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .space-home .letter-btn {
+        --tile-size: clamp(17px, 5vw, 20px);
+        width: var(--tile-size) !important;
+        height: var(--tile-size) !important;
+        border-width: 1px;
+        border-radius: clamp(5px, 1.6vw, 8px);
+        font-size: calc(var(--tile-size) * 0.62);
+        animation: none !important;
+        margin-top: 0 !important;
+    }
+
+    .space-home .letter-btn:nth-child(1) { --lx: 16.5%; --ly: 84.9%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(2) { --lx: 32.1%; --ly: 43.7%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(3) { --lx: 41.8%; --ly: 37.8%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(4) { --lx: 52.4%; --ly: 33.4%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(5) { --lx: 63.2%; --ly: 30.9%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(6) { --lx: 73.5%; --ly: 30.3%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(7) { --lx: 82.4%; --ly: 31.8%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(8) { --lx: 89.5%; --ly: 35.1%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(9) { --lx: 86.8%; --ly: 43.9%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(10) { --lx: 87.9%; --ly: 55.2%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(11) { --lx: 80.2%; --ly: 67.7%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(12) { --lx: 68.4%; --ly: 76.7%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(13) { --lx: 54.2%; --ly: 82.5%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(14) { --lx: 37.5%; --ly: 83.9%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(15) { --lx: 24.2%; --ly: 77.6%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(16) { --lx: 28.9%; --ly: 64%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(17) { --lx: 35.1%; --ly: 54.2%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(18) { --lx: 48.8%; --ly: 45%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(19) { --lx: 66.9%; --ly: 41.2%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(20) { --lx: 79.4%; --ly: 46.2%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(21) { --lx: 79.8%; --ly: 57.8%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(22) { --lx: 70.9%; --ly: 63.4%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(23) { --lx: 51.1%; --ly: 74%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(24) { --lx: 36.3%; --ly: 69.5%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(25) { --lx: 41.5%; --ly: 55.4%; --lr: 0deg; }
+    .space-home .letter-btn:nth-child(26) { --lx: 58.8%; --ly: 48.8%; --lr: 0deg; }
+
+    .games-section .games-grid {
+        width: min(100%, 360px) !important;
+        max-width: 360px !important;
+        min-height: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "pop"
+            "match"
+            "trace" !important;
+        gap: 24px !important;
+        justify-items: stretch !important;
+    }
+
+    .games-section .game-card[data-game="bubbles"],
+    .games-section .game-card[data-game="matching"],
+    .games-section .game-card[data-game="order"] {
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 260px !important;
+        height: 260px !important;
+        box-sizing: border-box;
+        border-radius: 34px !important;
+    }
+
+    .games-section .game-card-content {
+        padding: 26px 20px !important;
+    }
+
+    .games-section .game-card-icon {
+        width: 132px !important;
+        height: 104px !important;
+        flex: 0 0 104px;
+        margin: 0 auto 26px !important;
+    }
+
+    .games-section .game-card-title {
+        min-height: 34px;
+        display: grid;
+        place-items: center;
+        font-size: 30px !important;
+    }
+
+    .games-section .game-card-badge {
+        margin-top: 18px !important;
+    }
+}
