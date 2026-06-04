@@ -526,7 +526,7 @@ function getAudioCandidates(filename) {
 }
 
 function playSongAudio(filename) {
-    if (!state.soundEnabled || !filename) return Promise.resolve(false);
+    if (!filename) return Promise.resolve(false);
     const candidates = getAudioCandidates(filename);
 
     const tryCandidate = (index) => new Promise((resolve) => {
@@ -538,6 +538,7 @@ function playSongAudio(filename) {
                 state.songAudio.pause();
                 state.songAudio.currentTime = 0;
             }
+            audio.muted = !state.soundEnabled;
             state.songAudio = audio;
             audio.play().then(() => resolve(true)).catch(() => resolve(tryCandidate(index + 1)));
         }, { once: true });
@@ -1630,6 +1631,12 @@ function bindEvents() {
         state.soundEnabled = !state.soundEnabled;
         $('.sound-on').style.display = state.soundEnabled ? 'inline' : 'none';
         $('.sound-off').style.display = state.soundEnabled ? 'none' : 'inline';
+        if (state.songAudio) {
+            state.songAudio.muted = !state.soundEnabled;
+        }
+        if (!state.soundEnabled && 'speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
     });
 
     // Modal controls

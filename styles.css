@@ -2445,6 +2445,23 @@ img {
         inset 0 -6px 0 rgba(0, 0, 0, 0.18);
 }
 
+.space-home .letter-btn:active {
+    transform: translate(-50%, -50%) rotate(var(--lr, 0deg));
+}
+
+.space-home .letter-btn.visited {
+    border-color: #fff26a;
+    filter: brightness(1.12);
+    box-shadow:
+        0 0 22px rgba(255, 242, 106, 0.82),
+        inset 0 3px 5px rgba(255, 255, 255, 0.42),
+        inset 0 -6px 0 rgba(0, 0, 0, 0.18);
+}
+
+.space-home .letter-btn.visited::after {
+    content: none;
+}
+
 .space-home .letter-btn:nth-child(1) { --lx: 21%; --ly: 78%; --ls: 76px; --lr: -3deg; }
 .space-home .letter-btn:nth-child(2) { --lx: 58%; --ly: 73%; --ls: 78px; --lr: -2deg; }
 .space-home .letter-btn:nth-child(3) { --lx: 49%; --ly: 17%; --ls: 78px; --lr: 8deg; }
