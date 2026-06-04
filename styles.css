@@ -6646,10 +6646,33 @@ canvas {
         transition: none !important;
     }
 
-    .space-home .letter-btn:nth-child(25) {
-        --lx: 44% !important;
-        --ly: 58% !important;
-    }
+    /* Keep phone letters evenly spaced across three orbit rings. */
+    .space-home .letter-btn:nth-child(1) { --lx: 11.9% !important; --ly: 37% !important; }
+    .space-home .letter-btn:nth-child(2) { --lx: 32.1% !important; --ly: 22.1% !important; }
+    .space-home .letter-btn:nth-child(3) { --lx: 59.1% !important; --ly: 19.8% !important; }
+    .space-home .letter-btn:nth-child(4) { --lx: 82.7% !important; --ly: 30.9% !important; }
+    .space-home .letter-btn:nth-child(5) { --lx: 93.8% !important; --ly: 51.2% !important; }
+    .space-home .letter-btn:nth-child(6) { --lx: 88.1% !important; --ly: 73% !important; }
+    .space-home .letter-btn:nth-child(7) { --lx: 67.9% !important; --ly: 87.9% !important; }
+    .space-home .letter-btn:nth-child(8) { --lx: 40.9% !important; --ly: 90.2% !important; }
+    .space-home .letter-btn:nth-child(9) { --lx: 17.3% !important; --ly: 79.1% !important; }
+    .space-home .letter-btn:nth-child(10) { --lx: 6.2% !important; --ly: 58.8% !important; }
+    .space-home .letter-btn:nth-child(11) { --lx: 18.6% !important; --ly: 44.7% !important; }
+    .space-home .letter-btn:nth-child(12) { --lx: 37% !important; --ly: 30.1% !important; }
+    .space-home .letter-btn:nth-child(13) { --lx: 63% !important; --ly: 30.1% !important; }
+    .space-home .letter-btn:nth-child(14) { --lx: 81.4% !important; --ly: 44.7% !important; }
+    .space-home .letter-btn:nth-child(15) { --lx: 81.4% !important; --ly: 65.3% !important; }
+    .space-home .letter-btn:nth-child(16) { --lx: 63% !important; --ly: 79.9% !important; }
+    .space-home .letter-btn:nth-child(17) { --lx: 37% !important; --ly: 79.9% !important; }
+    .space-home .letter-btn:nth-child(18) { --lx: 18.6% !important; --ly: 65.3% !important; }
+    .space-home .letter-btn:nth-child(19) { --lx: 30.9% !important; --ly: 39.4% !important; }
+    .space-home .letter-btn:nth-child(20) { --lx: 50% !important; --ly: 33% !important; }
+    .space-home .letter-btn:nth-child(21) { --lx: 69.1% !important; --ly: 39.4% !important; }
+    .space-home .letter-btn:nth-child(22) { --lx: 77% !important; --ly: 55% !important; }
+    .space-home .letter-btn:nth-child(23) { --lx: 69.1% !important; --ly: 70.6% !important; }
+    .space-home .letter-btn:nth-child(24) { --lx: 50% !important; --ly: 77% !important; }
+    .space-home .letter-btn:nth-child(25) { --lx: 30.9% !important; --ly: 70.6% !important; }
+    .space-home .letter-btn:nth-child(26) { --lx: 23% !important; --ly: 55% !important; }
 
     .space-instruction {
         max-width: 330px !important;
