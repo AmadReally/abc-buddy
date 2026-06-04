@@ -5037,16 +5037,26 @@ body {
     cursor: pointer;
 }
 
-.sing-section .song-card.active {
+/* ---------- Reactive Song Card Glow ---------- */
+.sing-section .song-card:hover,
+.sing-section .song-card:focus-visible,
+.sing-section .song-card:active,
+.sing-section .song-card.song-card-pulse {
     border-color: #8dff00;
     box-shadow:
         0 10px 0 rgba(0, 0, 0, 0.32),
         0 20px 36px rgba(0, 0, 0, 0.28),
-        0 0 28px rgba(141, 255, 0, 0.4);
+        0 0 30px rgba(141, 255, 0, 0.5);
 }
 
-.sing-section .song-card.active strong {
-    color: #fff26a;
+.sing-section .song-card:hover,
+.sing-section .song-card:focus-visible,
+.sing-section .song-card.song-card-pulse {
+    transform: translateY(-6px);
+}
+
+.sing-section .song-card:active {
+    transform: translateY(-2px) scale(0.99);
 }
 
 /* ---------- E-Book Reader ---------- */

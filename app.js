@@ -1721,6 +1721,10 @@ function bindEvents() {
         card.addEventListener('click', () => {
             const songId = card.dataset.song;
             if (!songId) return;
+            card.classList.remove('song-card-pulse');
+            void card.offsetWidth;
+            card.classList.add('song-card-pulse');
+            setTimeout(() => card.classList.remove('song-card-pulse'), 450);
             playClickSound();
             startSinging(songId);
         });
