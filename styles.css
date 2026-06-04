@@ -5819,3 +5819,22 @@ canvas {
 .sing-section .sing-btn-stop:focus-visible .btn-icon {
     transform: rotate(8deg) scale(1.1);
 }
+
+/* ---------- Rocket Orbit Clearance ---------- */
+@media (min-width: 901px) {
+    .rocket-buddy {
+        left: clamp(-82px, -4vw, -42px);
+    }
+}
+
+@media (max-width: 900px) {
+    .rocket-buddy {
+        left: -52px;
+    }
+}
+
+@media (max-width: 620px) {
+    .rocket-buddy {
+        left: -58px;
+    }
+}
