@@ -59,6 +59,7 @@ const SONG_LIBRARY = {
         art: 'Play',
         cardId: 'sing-card-play',
         audioFile: 'abc_song.mpeg',
+        videoFile: 'abc_song.mp4',
         startOffset: 6000,
         lines: [
             { text: 'A B C D, clap with me!', letters: ['A', 'B', 'C', 'D'], duration: 2500 },
@@ -75,6 +76,7 @@ const SONG_LIBRARY = {
         art: 'A B C',
         cardId: 'sing-card-slow',
         audioFile: 'nebula.mpeg',
+        videoFile: 'nebula_letters.mp4',
         startOffset: 7000,
         slow: true,
         lines: [
@@ -92,6 +94,7 @@ const SONG_LIBRARY = {
         art: 'Go',
         cardId: 'sing-card-rhyme',
         audioFile: 'Rocket_rhymes.mpeg',
+        videoFile: 'rocket_rhymes.mp4',
         startOffset: 7000,
         lines: [
             { text: 'Buh, buh, Ball.', letters: ['B'], duration: 15000 },
@@ -114,6 +117,7 @@ const SONG_LIBRARY = {
         art: 'Sun',
         cardId: 'sing-card-planet',
         audioFile: 'planet_grove.mpeg',
+        videoFile: 'planet_party.mp4',
         startOffset: 16500,
         lines: [
             { text: 'A is for Apple, crunchy and sweet.', letters: ['A'], duration: 3500 },
@@ -130,6 +134,7 @@ const SONG_LIBRARY = {
         art: 'A E I',
         cardId: 'sing-card-vowels',
         audioFile: 'vowel_pop.mp3',
+        videoFile: 'vowel_pop.mp4',
         lines: [
             { text: 'A says Auh in Apple.', letters: ['A'], duration: 3200 },
             { text: 'E says Eh in Egg.', letters: ['E'], duration: 3200 },
@@ -186,6 +191,8 @@ const state = {
     songAudio: null,
     karaokeSyncRAF: null,
     currentSong: 'abc-rock',
+    pendingSongChoice: null,
+    videoSong: null,
     factIndex: 0,
     factInterval: null,
     // Memory game state
@@ -1408,7 +1415,73 @@ function initSongCards() {
     setActiveSong('abc-rock');
 }
 
+function openSongMode(songId) {
+    const song = SONG_LIBRARY[songId];
+    if (!song) return;
+
+    stopSinging(false);
+    stopSongVideo(false);
+    state.pendingSongChoice = songId;
+    setActiveSong(songId);
+    $('#song-mode-song-title').textContent = song.title;
+    const modal = $('#song-mode-modal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    $('#song-mode-sing').focus();
+}
+
+function closeSongMode() {
+    const modal = $('#song-mode-modal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+}
+
+function stopSongVideo(resetText = true) {
+    const video = $('#song-video');
+    const stage = $('#song-video-stage');
+    state.videoSong = null;
+    if (video) {
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+    }
+    if (stage) stage.hidden = true;
+    if ($('#song-video-status')) $('#song-video-status').textContent = '';
+    if (resetText) {
+        $('#karaoke-line').textContent = 'Choose a song to start singing!';
+    }
+}
+
+async function startSongVideo(songId = state.currentSong || 'abc-rock') {
+    const song = SONG_LIBRARY[songId];
+    if (!song) return;
+
+    stopSinging(false);
+    stopSongVideo(false);
+    setActiveSong(songId);
+    state.videoSong = songId;
+
+    const stage = $('#song-video-stage');
+    const video = $('#song-video');
+    const status = $('#song-video-status');
+    $('#song-video-title').textContent = song.title;
+    status.textContent = `Loading ${song.title} video...`;
+    stage.hidden = false;
+    video.muted = !state.soundEnabled;
+    video.src = `assets/video/${song.videoFile}`;
+    video.load();
+
+    try {
+        await video.play();
+    } catch (error) {
+        if (state.videoSong === songId && !video.error) {
+            status.textContent = 'Press play when you are ready to watch and sing.';
+        }
+    }
+}
+
 async function startSinging(songId = state.currentSong || 'abc-rock', options = {}) {
+    stopSongVideo(false);
     if (state.singing) stopSinging(false);
     setActiveSong(songId);
     state.singing = true;
@@ -1659,6 +1732,9 @@ function bindEvents() {
         if (state.songAudio) {
             state.songAudio.muted = !state.soundEnabled;
         }
+        if ($('#song-video')) {
+            $('#song-video').muted = !state.soundEnabled;
+        }
         if (!state.soundEnabled && 'speechSynthesis' in window) {
             window.speechSynthesis.cancel();
         }
@@ -1747,6 +1823,7 @@ function bindEvents() {
     $('#sing-stop-btn').addEventListener('click', () => {
         playClickSound();
         stopSinging();
+        stopSongVideo();
     });
 
     $$('.song-card').forEach(card => {
@@ -1758,8 +1835,45 @@ function bindEvents() {
             card.classList.add('song-card-pulse');
             setTimeout(() => card.classList.remove('song-card-pulse'), 450);
             playClickSound();
-            startSinging(songId);
+            openSongMode(songId);
         });
+    });
+
+    $('#song-mode-sing').addEventListener('click', () => {
+        const songId = state.pendingSongChoice || state.currentSong || 'abc-rock';
+        closeSongMode();
+        startSinging(songId);
+    });
+
+    $('#song-mode-watch').addEventListener('click', () => {
+        const songId = state.pendingSongChoice || state.currentSong || 'abc-rock';
+        closeSongMode();
+        startSongVideo(songId);
+    });
+
+    $('#song-mode-close').addEventListener('click', closeSongMode);
+    $('#song-mode-overlay').addEventListener('click', closeSongMode);
+    $('#song-video-close').addEventListener('click', () => stopSongVideo());
+
+    $('#song-video').addEventListener('playing', () => {
+        const song = SONG_LIBRARY[state.videoSong];
+        if (!song) return;
+        $('#song-video-status').textContent = `Now watching ${song.title}. Sing along!`;
+        $('#karaoke-line').textContent = `Watch, listen, and sing along with ${song.title}!`;
+    });
+
+    $('#song-video').addEventListener('error', () => {
+        const song = SONG_LIBRARY[state.videoSong];
+        if (!song) return;
+        $('#song-video-status').textContent = 'This cosmic video is coming soon!';
+        $('#karaoke-line').textContent = `${song.title} video is not available yet.`;
+    });
+
+    $('#song-video').addEventListener('ended', () => {
+        const song = SONG_LIBRARY[state.videoSong];
+        if (!song) return;
+        $('#song-video-status').textContent = `Great singing! ${song.title} is complete.`;
+        launchConfetti();
     });
 
     // Facts dots
@@ -1794,6 +1908,7 @@ function bindEvents() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeModal();
+            closeSongMode();
             $('#parents-modal').style.display = 'none';
         }
 

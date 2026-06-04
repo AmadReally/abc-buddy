@@ -369,6 +369,17 @@
                     <small>Complete missions to reveal new cosmic tracks.</small>
                 </div>
             </div>
+            <div class="song-video-stage" id="song-video-stage" hidden>
+                <div class="song-video-header">
+                    <div>
+                        <span class="song-video-kicker">Watch &amp; Sing</span>
+                        <h3 id="song-video-title">Cosmic song video</h3>
+                    </div>
+                    <button class="song-video-close" id="song-video-close" type="button" aria-label="Close video">&times;</button>
+                </div>
+                <video id="song-video" controls playsinline preload="metadata"></video>
+                <p class="song-video-status" id="song-video-status" aria-live="polite"></p>
+            </div>
             <div class="karaoke-display" id="karaoke-display">
                 <div class="karaoke-line" id="karaoke-line">
                     Press play to start singing! 🎤
@@ -481,6 +492,29 @@
 
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- Song Mode Modal -->
+    <div class="song-mode-modal" id="song-mode-modal" aria-hidden="true">
+        <div class="song-mode-overlay" id="song-mode-overlay"></div>
+        <div class="song-mode-content" role="dialog" aria-modal="true" aria-labelledby="song-mode-title">
+            <button class="modal-close song-mode-close" id="song-mode-close" type="button" aria-label="Close">&times;</button>
+            <div class="song-mode-icon" aria-hidden="true">&#127925;</div>
+            <h2 id="song-mode-title">Choose your song mode</h2>
+            <p id="song-mode-song-title">The ABC Song</p>
+            <div class="song-mode-actions">
+                <button class="song-mode-option song-mode-sing" id="song-mode-sing" type="button">
+                    <span class="song-mode-option-icon" aria-hidden="true">&#127908;</span>
+                    <strong>Sing Along</strong>
+                    <small>Music and glowing lyrics</small>
+                </button>
+                <button class="song-mode-option song-mode-watch" id="song-mode-watch" type="button">
+                    <span class="song-mode-option-icon" aria-hidden="true">&#127916;</span>
+                    <strong>Watch &amp; Sing</strong>
+                    <small>Play the song video</small>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Parents Modal -->
     <div class="parents-modal" id="parents-modal" style="display:none;">

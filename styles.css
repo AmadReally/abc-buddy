@@ -6806,3 +6806,220 @@ canvas {
         border-width: 0 3px 3px;
     }
 }
+
+/* ---------- Sing Mode Chooser + AI Video ---------- */
+.song-mode-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 360;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.song-mode-modal.open {
+    display: flex;
+}
+
+.song-mode-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 12, 35, 0.84);
+    backdrop-filter: blur(7px);
+}
+
+.song-mode-content {
+    position: relative;
+    width: min(620px, 100%);
+    padding: 38px 28px 30px;
+    border: 2px solid rgba(191, 238, 255, 0.42);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #123563, #081c41);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48), 0 0 28px rgba(93, 173, 226, 0.24);
+    text-align: center;
+}
+
+.song-mode-icon {
+    display: grid;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 12px;
+    place-items: center;
+    border-radius: 50%;
+    background: #ffcf33;
+    box-shadow: inset 0 -7px 0 #f29d21, 0 0 20px rgba(255, 207, 51, 0.42);
+    font-size: 34px;
+}
+
+.song-mode-content h2 {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.15;
+}
+
+#song-mode-song-title {
+    margin: 8px 0 22px;
+    color: #fff26a;
+    font-weight: 800;
+    font-size: 19px;
+}
+
+.song-mode-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.song-mode-option {
+    min-height: 158px;
+    padding: 18px 14px;
+    border: 2px solid rgba(255, 255, 255, 0.46);
+    border-radius: 16px;
+    color: #ffffff;
+    box-shadow: inset 0 -7px 0 rgba(0, 0, 0, 0.16), 0 12px 20px rgba(0, 0, 0, 0.22);
+    transition: transform var(--transition-bounce), filter var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.song-mode-sing {
+    background: #ff7417;
+}
+
+.song-mode-watch {
+    background: #138f8a;
+}
+
+.song-mode-option:hover,
+.song-mode-option:focus-visible {
+    transform: translateY(-5px) scale(1.02);
+    filter: brightness(1.12);
+    box-shadow: inset 0 -7px 0 rgba(0, 0, 0, 0.14), 0 18px 28px rgba(0, 0, 0, 0.28), 0 0 20px rgba(255, 255, 255, 0.22);
+}
+
+.song-mode-option-icon,
+.song-mode-option strong,
+.song-mode-option small {
+    display: block;
+}
+
+.song-mode-option-icon {
+    margin-bottom: 9px;
+    font-size: 36px;
+}
+
+.song-mode-option strong {
+    font-family: var(--font-display);
+    font-size: 20px;
+}
+
+.song-mode-option small {
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.84);
+    font-weight: 700;
+}
+
+.song-video-stage {
+    width: min(100%, 980px);
+    margin: 0 auto 24px;
+    padding: 14px;
+    border: 2px solid rgba(191, 238, 255, 0.38);
+    border-radius: 18px;
+    background: rgba(5, 19, 49, 0.92);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.32), 0 0 24px rgba(93, 173, 226, 0.18);
+}
+
+.song-video-stage[hidden] {
+    display: none;
+}
+
+.song-video-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 2px 2px 12px;
+    text-align: left;
+}
+
+.song-video-kicker {
+    display: block;
+    color: #8ef0e4;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.song-video-header h3 {
+    margin: 3px 0 0;
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 22px;
+}
+
+.song-video-close {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.song-video-close:hover,
+.song-video-close:focus-visible {
+    background: #ff7417;
+}
+
+#song-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    background: #020817;
+    object-fit: contain;
+}
+
+.song-video-status {
+    min-height: 22px;
+    margin: 10px 4px 0;
+    color: #fff26a;
+    font-weight: 800;
+}
+
+@media (max-width: 560px) {
+    .song-mode-content {
+        padding: 32px 16px 18px;
+    }
+
+    .song-mode-content h2 {
+        font-size: 23px;
+    }
+
+    .song-mode-actions {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .song-mode-option {
+        min-height: 112px;
+        padding: 13px;
+    }
+
+    .song-mode-option-icon {
+        margin-bottom: 4px;
+        font-size: 28px;
+    }
+
+    .song-video-stage {
+        padding: 9px;
+        border-radius: 14px;
+    }
+
+    .song-video-header h3 {
+        font-size: 18px;
+    }
+}
