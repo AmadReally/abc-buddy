@@ -6553,3 +6553,101 @@ canvas {
         display: none;
     }
 }
+
+@media (orientation: portrait) and (max-width: 760px) {
+    .space-home {
+        min-height: auto !important;
+    }
+
+    .space-scene {
+        padding: 18px 12px 28px !important;
+    }
+
+    .space-title {
+        max-width: 330px !important;
+        font-size: clamp(26px, 8vw, 32px) !important;
+        line-height: 1.02 !important;
+    }
+
+    .space-letter-field {
+        flex: none !important;
+        width: 100% !important;
+        height: 440px !important;
+        min-height: 440px !important;
+        margin-top: 6px !important;
+    }
+
+    .speech-bubble {
+        top: 4px !important;
+        left: 50% !important;
+        right: auto !important;
+        width: min(320px, calc(100% - 28px)) !important;
+        padding: 12px 16px !important;
+        border-width: 3px !important;
+        border-radius: 18px !important;
+        font-size: 13px !important;
+        line-height: 1.15 !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .speech-bubble::after,
+    .speech-logo,
+    .rocket-buddy,
+    .planet-left,
+    .planet-right {
+        display: none !important;
+    }
+
+    .space-home .alphabet-grid {
+        inset: auto !important;
+        left: 0 !important;
+        top: 72px !important;
+        width: 100% !important;
+        height: 320px !important;
+    }
+
+    .orbit {
+        left: 50% !important;
+        top: 248px !important;
+        transform: translate(-50%, -50%) rotate(-10deg) !important;
+    }
+
+    .orbit-1 { width: 42% !important; height: 22% !important; }
+    .orbit-2 { width: 58% !important; height: 33% !important; }
+    .orbit-3 { width: 76% !important; height: 45% !important; }
+    .orbit-4 { width: 96% !important; height: 58% !important; }
+
+    .sun-face {
+        left: 50% !important;
+        top: 248px !important;
+        width: 84px !important;
+        height: 84px !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .space-home .letter-btn {
+        --tile-size: clamp(20px, 6vw, 24px) !important;
+        width: var(--tile-size) !important;
+        height: var(--tile-size) !important;
+        margin-top: 0 !important;
+        border-width: 1px !important;
+        border-radius: 8px !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .space-home .letter-btn:nth-child(25) {
+        --lx: 44% !important;
+        --ly: 58% !important;
+    }
+
+    .space-instruction {
+        max-width: 330px !important;
+        margin-top: 0 !important;
+    }
+
+    .planet-bottom {
+        right: -4% !important;
+        bottom: 5% !important;
+    }
+}
