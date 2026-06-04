@@ -2459,7 +2459,7 @@ img {
 }
 
 .space-home .letter-btn.visited::after {
-    content: none;
+    content: attr(data-letter);
 }
 
 .space-home .letter-btn:nth-child(1) { --lx: 21%; --ly: 78%; --ls: 76px; --lr: -3deg; }
