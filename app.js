@@ -43,7 +43,6 @@ const LETTER_COLORS = [
 ];
 
 const VOWELS = ['A', 'E', 'I', 'O', 'U'];
-const GAME_PROGRESS_KEY = 'abc-buddy-completed-games';
 
 const SONG_ART_CLASSES = {
     'abc-rock': 'song-art-rock',
@@ -899,15 +898,6 @@ function updateScore() {
     $('#score-value').textContent = state.gameScore;
 }
 
-function loadCompletedGames() {
-    try {
-        const savedGames = JSON.parse(localStorage.getItem(GAME_PROGRESS_KEY) || '[]');
-        state.completedGames = new Set(Array.isArray(savedGames) ? savedGames : []);
-    } catch {
-        state.completedGames = new Set();
-    }
-}
-
 function renderMissionStars() {
     $$('.games-section .game-card[data-game]').forEach(card => {
         const badge = card.querySelector('.game-card-badge');
@@ -925,11 +915,6 @@ function renderMissionStars() {
 function completeCurrentGame(gameType = state.currentGame) {
     if (!gameType || state.completedGames.has(gameType)) return;
     state.completedGames.add(gameType);
-    try {
-        localStorage.setItem(GAME_PROGRESS_KEY, JSON.stringify([...state.completedGames]));
-    } catch {
-        // Keep progress available for the current session.
-    }
     renderMissionStars();
 }
 
@@ -1825,7 +1810,6 @@ function init() {
     initAlphabetGrid();
     initSingLetters();
     initSongCards();
-    loadCompletedGames();
     renderMissionStars();
     initTracing();
     initFacts();
