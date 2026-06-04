@@ -6701,3 +6701,71 @@ canvas {
         bottom: 5% !important;
     }
 }
+
+/* ---------- Live Mission Completion Stars ---------- */
+.games-section .game-card-badge.mission-stars::before {
+    content: none;
+}
+
+.games-section .mission-stars {
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.games-section .mission-star {
+    display: inline-grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    color: #f1e800;
+    font-size: 22px;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(241, 232, 0, 0.42);
+    transform-origin: center;
+    animation: missionStarTwinkle 1.8s ease-in-out infinite;
+    animation-delay: calc(var(--star-index) * 0.22s);
+}
+
+.games-section .game-completed .mission-star {
+    color: #fff26a;
+    text-shadow:
+        0 0 7px rgba(255, 242, 106, 0.95),
+        0 0 18px rgba(255, 205, 35, 0.7);
+    animation: completedStarPop 0.7s cubic-bezier(0.2, 1.65, 0.5, 1) both;
+    animation-delay: calc(var(--star-index) * 0.12s);
+}
+
+@keyframes missionStarTwinkle {
+    0%, 100% {
+        opacity: 0.72;
+        transform: scale(0.92);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.13) rotate(8deg);
+    }
+}
+
+@keyframes completedStarPop {
+    0% {
+        opacity: 0.4;
+        transform: scale(0.45) rotate(-25deg);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.3) rotate(8deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .games-section .mission-star {
+        animation: none !important;
+    }
+}

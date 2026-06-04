@@ -43,6 +43,7 @@ const LETTER_COLORS = [
 ];
 
 const VOWELS = ['A', 'E', 'I', 'O', 'U'];
+const GAME_PROGRESS_KEY = 'abc-buddy-completed-games';
 
 const SONG_ART_CLASSES = {
     'abc-rock': 'song-art-rock',
@@ -178,6 +179,7 @@ const state = {
     visitedLetters: new Set(),
     gameScore: 0,
     currentGame: null,
+    completedGames: new Set(),
     singing: false,
     singTimeout: null,
     songToneTimeouts: [],
@@ -897,6 +899,40 @@ function updateScore() {
     $('#score-value').textContent = state.gameScore;
 }
 
+function loadCompletedGames() {
+    try {
+        const savedGames = JSON.parse(localStorage.getItem(GAME_PROGRESS_KEY) || '[]');
+        state.completedGames = new Set(Array.isArray(savedGames) ? savedGames : []);
+    } catch {
+        state.completedGames = new Set();
+    }
+}
+
+function renderMissionStars() {
+    $$('.games-section .game-card[data-game]').forEach(card => {
+        const badge = card.querySelector('.game-card-badge');
+        if (!badge) return;
+        const completed = state.completedGames.has(card.dataset.game);
+        card.classList.toggle('game-completed', completed);
+        badge.classList.add('mission-stars');
+        badge.setAttribute('aria-label', completed ? 'Mission completed: three stars earned' : 'Mission not completed');
+        badge.innerHTML = Array.from({ length: 3 }, (_, index) =>
+            `<span class="mission-star" style="--star-index:${index}" aria-hidden="true">${completed ? '\u2605' : '\u2606'}</span>`
+        ).join('');
+    });
+}
+
+function completeCurrentGame(gameType = state.currentGame) {
+    if (!gameType || state.completedGames.has(gameType)) return;
+    state.completedGames.add(gameType);
+    try {
+        localStorage.setItem(GAME_PROGRESS_KEY, JSON.stringify([...state.completedGames]));
+    } catch {
+        // Keep progress available for the current session.
+    }
+    renderMissionStars();
+}
+
 function backToGames() {
     stopCurrentGame();
     $('#game-play-area').style.display = 'none';
@@ -1007,6 +1043,7 @@ function initBubbleGame(container) {
                 bubblesPopped++;
 
                 if (bubblesPopped >= 5) {
+                    completeCurrentGame('bubbles');
                     // New target letter
                     bubblesPopped = 0;
                     state.bubbleTarget = letters[Math.floor(Math.random() * letters.length)];
@@ -1106,6 +1143,7 @@ function handleMemoryClick(card, container) {
                 playSuccessSound();
 
                 if (state.memoryMatched === 6) {
+                    completeCurrentGame('memory');
                     showFeedback('You win!', '#FFD700');
                     launchConfetti();
                     setTimeout(() => initMemoryGame(container), 3000);
@@ -1190,6 +1228,7 @@ function initMatchingGame(container) {
                 playSuccessSound();
                 matched++;
                 if (matched === 4) {
+                    completeCurrentGame('matching');
                     showFeedback('Perfect!', '#FFD700');
                     launchConfetti();
                     setTimeout(() => initMatchingGame(container), 2500);
@@ -1252,6 +1291,7 @@ function initOrderGame(container) {
                 nextSlot++;
 
                 if (nextSlot === correctOrder.length) {
+                    completeCurrentGame('order');
                     showFeedback('Perfect order!', '#FFD700');
                     launchConfetti();
                     setTimeout(() => initOrderGame(container), 2500);
@@ -1785,6 +1825,8 @@ function init() {
     initAlphabetGrid();
     initSingLetters();
     initSongCards();
+    loadCompletedGames();
+    renderMissionStars();
     initTracing();
     initFacts();
     bindEvents();
