@@ -6772,3 +6772,37 @@ canvas {
         animation: none !important;
     }
 }
+
+/* ---------- Responsive Phone Sun Face ---------- */
+@media (max-width: 960px) {
+    .sun-core {
+        inset: 15%;
+        background: radial-gradient(circle at 34% 28%, #fff0a0 0 7%, #ffe568 19%, #ffd13f 66%, #f5a72e 100%);
+        box-shadow:
+            inset -4px -6px 0 rgba(231, 122, 28, 0.16),
+            0 0 14px rgba(255, 211, 60, 0.22);
+    }
+
+    .sun-eye {
+        top: 39%;
+        width: 10%;
+        height: 13%;
+        border-width: 0 3px 3px 0;
+        border-radius: 0 0 8px 0;
+    }
+
+    .sun-eye-left {
+        left: 31%;
+    }
+
+    .sun-eye-right {
+        right: 31%;
+    }
+
+    .sun-smile {
+        top: 57%;
+        width: 34%;
+        height: 20%;
+        border-width: 0 3px 3px;
+    }
+}
