@@ -5585,3 +5585,237 @@ canvas {
     transform: none !important;
     filter: none !important;
 }
+
+/* ---------- Kid-Friendly Game And Sing Icons ---------- */
+.games-section .game-card-icon {
+    position: relative;
+    display: block;
+    width: 132px;
+    height: 104px;
+    margin-bottom: 32px;
+    overflow: visible;
+    isolation: isolate;
+    border: 3px solid rgba(255, 255, 255, 0.78);
+    border-radius: 34px;
+    background: linear-gradient(145deg, #ff9a75, #ff5f6d) !important;
+    box-shadow:
+        0 10px 0 #9b3648 !important,
+        0 17px 28px rgba(0, 0, 0, 0.3),
+        inset 0 4px 9px rgba(255, 255, 255, 0.42) !important;
+    color: #ffffff;
+    font-size: initial;
+}
+
+.games-section .game-card-icon::before {
+    content: '' !important;
+    position: absolute;
+    inset: 7px 9px auto;
+    z-index: 0;
+    height: 28px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent);
+}
+
+.games-section .game-card-icon::after {
+    content: '✦' !important;
+    position: absolute;
+    top: -14px;
+    right: -12px;
+    z-index: 3;
+    color: #fff26a;
+    font-size: 30px;
+    line-height: 1;
+    text-shadow: 0 3px 0 rgba(0, 0, 0, 0.24), 0 0 14px rgba(255, 242, 106, 0.72);
+}
+
+.games-section .game-card-icon > span {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 1;
+}
+
+.games-section .game-icon-phonics > span {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 26px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
+    box-shadow: 0 6px 0 rgba(74, 28, 52, 0.34), inset 0 3px 5px rgba(255, 255, 255, 0.38);
+}
+
+.games-section .game-icon-phonics > span:nth-child(1) {
+    left: 5px;
+    top: 38px;
+    transform: rotate(-12deg);
+    background: #ff5f6d;
+}
+
+.games-section .game-icon-phonics > span:nth-child(2) {
+    left: 39px;
+    top: 9px;
+    background: #ffca28;
+}
+
+.games-section .game-icon-phonics > span:nth-child(3) {
+    right: 5px;
+    top: 38px;
+    transform: rotate(12deg);
+    background: #42a5f5;
+}
+
+.games-section .game-card[data-game="matching"] .game-icon-match {
+    background: linear-gradient(145deg, #a8ff3e, #39d98a) !important;
+    box-shadow:
+        0 10px 0 #16865b !important,
+        0 17px 28px rgba(0, 0, 0, 0.3),
+        inset 0 4px 9px rgba(255, 255, 255, 0.42) !important;
+}
+
+.games-section .game-icon-match > span {
+    top: 17px;
+    width: 56px;
+    height: 68px;
+    border: 3px solid rgba(255, 255, 255, 0.92);
+    border-radius: 17px;
+    background: #ffffff;
+    color: #31557d;
+    font-size: 34px;
+    box-shadow: 0 7px 0 rgba(15, 94, 66, 0.32), inset 0 3px 7px rgba(112, 210, 255, 0.3);
+}
+
+.games-section .game-icon-match > span:nth-child(1) {
+    left: 12px;
+    transform: rotate(-10deg);
+    background: #dff4ff;
+}
+
+.games-section .game-icon-match > span:nth-child(2) {
+    right: 12px;
+    transform: rotate(10deg);
+    background: #fff7d2;
+    font-family: "Segoe UI Emoji", sans-serif;
+    font-size: 30px;
+}
+
+.games-section .game-card[data-game="matching"] .game-icon-match::after {
+    content: '✓' !important;
+    top: auto;
+    right: -12px;
+    bottom: -13px;
+    display: grid;
+    width: 35px;
+    height: 35px;
+    place-items: center;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    background: #ffca28;
+    color: #21482f;
+    font-size: 22px;
+    text-shadow: none;
+}
+
+.games-section .game-card[data-game="order"] .game-icon-order {
+    background: linear-gradient(145deg, #7657ff, #31b6ff) !important;
+    box-shadow:
+        0 10px 0 #344c9b !important,
+        0 17px 28px rgba(0, 0, 0, 0.3),
+        inset 0 4px 9px rgba(255, 255, 255, 0.42) !important;
+}
+
+.games-section .game-icon-order::before {
+    inset: 21px 18px 22px !important;
+    height: auto !important;
+    border-bottom: 4px dashed rgba(255, 255, 255, 0.72);
+    border-radius: 50%;
+    background: transparent !important;
+    transform: rotate(-18deg);
+}
+
+.games-section .game-icon-order > span {
+    width: 38px;
+    height: 38px;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 13px;
+    color: #17345d;
+    font-size: 21px;
+    box-shadow: 0 5px 0 rgba(35, 49, 114, 0.34), inset 0 2px 5px rgba(255, 255, 255, 0.45);
+}
+
+.games-section .game-icon-order > span:nth-child(1) {
+    left: 8px;
+    bottom: 9px;
+    transform: rotate(-9deg);
+    background: #ff85b3;
+}
+
+.games-section .game-icon-order > span:nth-child(2) {
+    left: 47px;
+    top: 31px;
+    background: #fff26a;
+}
+
+.games-section .game-icon-order > span:nth-child(3) {
+    right: 8px;
+    top: 8px;
+    transform: rotate(9deg);
+    background: #a8ff3e;
+}
+
+.sing-section .sing-btn {
+    min-height: 74px;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 24px 10px 11px;
+    border-width: 3px;
+    border-radius: 24px;
+    font-size: 20px;
+    box-shadow:
+        0 8px 0 rgba(116, 45, 14, 0.7),
+        0 14px 26px rgba(0, 0, 0, 0.24),
+        inset 0 3px 7px rgba(255, 255, 255, 0.4);
+}
+
+.sing-section .sing-btn-stop {
+    box-shadow:
+        0 8px 0 #9c7e00,
+        0 14px 26px rgba(0, 0, 0, 0.24),
+        inset 0 3px 7px rgba(255, 255, 255, 0.5);
+}
+
+.sing-section .sing-btn .btn-icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    place-items: center;
+    border: 3px solid rgba(255, 255, 255, 0.88);
+    border-radius: 17px;
+    background: linear-gradient(145deg, #ffec8a, #ff85b3);
+    font-family: "Segoe UI Emoji", sans-serif;
+    font-size: 26px;
+    line-height: 1;
+    box-shadow: 0 5px 0 rgba(86, 38, 76, 0.35), inset 0 3px 5px rgba(255, 255, 255, 0.48);
+    transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.sing-section .sing-btn-stop .btn-icon {
+    background: linear-gradient(145deg, #ff8a8a, #ff4f64);
+    box-shadow: 0 5px 0 rgba(127, 39, 52, 0.38), inset 0 3px 5px rgba(255, 255, 255, 0.45);
+}
+
+.sing-section .sing-btn:hover .btn-icon,
+.sing-section .sing-btn:focus-visible .btn-icon {
+    transform: rotate(-8deg) scale(1.1);
+    filter: drop-shadow(0 0 9px rgba(255, 242, 106, 0.65));
+}
+
+.sing-section .sing-btn-stop:hover .btn-icon,
+.sing-section .sing-btn-stop:focus-visible .btn-icon {
+    transform: rotate(8deg) scale(1.1);
+}
