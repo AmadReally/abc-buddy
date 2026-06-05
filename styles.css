@@ -2502,7 +2502,7 @@ img {
     to { transform: scaleX(1.08); opacity: 1; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
     .site-header {
         width: calc(100% - 18px);
     }
@@ -3915,7 +3915,7 @@ body {
     background: rgba(8, 23, 61, 0.72);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
     .games-section .games-grid,
     .song-library {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7022,4 +7022,218 @@ canvas {
     .song-video-header h3 {
         font-size: 18px;
     }
+}
+
+/* ---------- Mobile + Tablet Orbit Repair ---------- */
+@media (max-width: 900px) {
+    .space-letter-field {
+        height: clamp(420px, 64vw, 560px) !important;
+        min-height: clamp(420px, 64vw, 560px) !important;
+        overflow: visible !important;
+    }
+
+    .space-home .alphabet-grid {
+        inset: auto !important;
+        left: 50% !important;
+        top: 54% !important;
+        width: min(92vw, 720px) !important;
+        height: clamp(285px, 45vw, 410px) !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .orbit,
+    .sun-face {
+        left: 50% !important;
+        top: 54% !important;
+    }
+
+    .orbit {
+        transform: translate(-50%, -50%) rotate(-10deg) !important;
+    }
+
+    .orbit-1 { width: min(38vw, 300px) !important; height: min(18vw, 138px) !important; }
+    .orbit-2 { width: min(56vw, 430px) !important; height: min(27vw, 205px) !important; }
+    .orbit-3 { width: min(74vw, 565px) !important; height: min(36vw, 275px) !important; }
+    .orbit-4 { width: min(91vw, 700px) !important; height: min(44vw, 335px) !important; }
+
+    .sun-face {
+        width: clamp(92px, 18vw, 136px) !important;
+        height: clamp(92px, 18vw, 136px) !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .space-home .letter-btn {
+        --tile-size: clamp(25px, 4.2vw, 34px) !important;
+        width: var(--tile-size) !important;
+        height: var(--tile-size) !important;
+        display: grid !important;
+        place-items: center !important;
+        margin: 0 !important;
+        border-width: 1px !important;
+        border-radius: calc(var(--tile-size) * 0.34) !important;
+        color: transparent !important;
+        font-size: 0 !important;
+        line-height: 1 !important;
+        overflow: visible !important;
+        transform: translate(-50%, -50%) rotate(0deg) !important;
+        animation: none !important;
+        touch-action: manipulation;
+    }
+
+    .space-home .letter-btn:hover,
+    .space-home .letter-btn:focus-visible {
+        transform: translate(-50%, -50%) scale(1.08) rotate(0deg) !important;
+    }
+
+    .space-home .letter-btn:active,
+    .space-home .letter-btn.visited,
+    .space-home .letter-btn.visited:hover,
+    .space-home .letter-btn.visited:focus-visible {
+        transform: translate(-50%, -50%) rotate(0deg) !important;
+    }
+
+    .space-home .letter-btn::after,
+    .space-home .letter-btn.visited::after {
+        content: attr(data-letter) !important;
+        position: absolute !important;
+        inset: 0 !important;
+        z-index: 2 !important;
+        display: grid !important;
+        place-items: center !important;
+        color: #ffffff !important;
+        font-family: "Arial Rounded MT Bold", "Nunito", Arial, sans-serif !important;
+        font-size: calc(var(--tile-size) * 0.63) !important;
+        font-weight: 900 !important;
+        line-height: 1 !important;
+        text-align: center !important;
+        text-shadow: none !important;
+        filter: none;
+        transform: none !important;
+        transform-origin: center !important;
+    }
+
+    .space-home .letter-btn:hover::after,
+    .space-home .letter-btn:focus-visible::after,
+    .space-home .letter-btn:active::after,
+    .space-home .letter-btn.visited::after {
+        transform: none !important;
+    }
+
+    .space-home .letter-btn::before {
+        top: 12% !important;
+        left: 16% !important;
+        right: 16% !important;
+        height: 24% !important;
+        pointer-events: none;
+    }
+
+    .space-home .letter-btn:nth-child(1) { --lx: 10.5% !important; --ly: 50% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(2) { --lx: 15.5% !important; --ly: 37% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(3) { --lx: 28% !important; --ly: 27% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(4) { --lx: 43% !important; --ly: 22% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(5) { --lx: 58% !important; --ly: 22% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(6) { --lx: 73% !important; --ly: 28% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(7) { --lx: 85% !important; --ly: 39% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(8) { --lx: 89.5% !important; --ly: 53% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(9) { --lx: 83.5% !important; --ly: 67% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(10) { --lx: 69% !important; --ly: 77% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(11) { --lx: 52% !important; --ly: 82% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(12) { --lx: 35% !important; --ly: 78% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(13) { --lx: 20% !important; --ly: 66% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(14) { --lx: 77% !important; --ly: 43% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(15) { --lx: 74% !important; --ly: 57% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(16) { --lx: 62% !important; --ly: 66% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(17) { --lx: 47% !important; --ly: 69% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(18) { --lx: 33% !important; --ly: 63% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(19) { --lx: 24% !important; --ly: 53% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(20) { --lx: 31% !important; --ly: 43% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(21) { --lx: 44% !important; --ly: 36% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(22) { --lx: 58% !important; --ly: 37% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(23) { --lx: 67% !important; --ly: 49% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(24) { --lx: 55% !important; --ly: 60% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(25) { --lx: 40% !important; --ly: 57% !important; --lr: 0deg !important; }
+    .space-home .letter-btn:nth-child(26) { --lx: 24% !important; --ly: 43% !important; --lr: 0deg !important; }
+}
+
+@media (max-width: 620px) {
+    .space-letter-field {
+        height: 430px !important;
+        min-height: 430px !important;
+        margin-top: 0 !important;
+    }
+
+    .space-home .alphabet-grid {
+        top: 53% !important;
+        width: min(94vw, 460px) !important;
+        height: clamp(278px, 61vw, 315px) !important;
+    }
+
+    .orbit,
+    .sun-face {
+        top: 53% !important;
+    }
+
+    .orbit-1 { width: 40vw !important; height: 19vw !important; }
+    .orbit-2 { width: 58vw !important; height: 28vw !important; }
+    .orbit-3 { width: 76vw !important; height: 37vw !important; }
+    .orbit-4 { width: 93vw !important; height: 45vw !important; }
+
+    .sun-face {
+        width: clamp(82px, 21vw, 98px) !important;
+        height: clamp(82px, 21vw, 98px) !important;
+    }
+
+    .space-home .letter-btn {
+        --tile-size: clamp(22px, 6vw, 27px) !important;
+        border-radius: 8px !important;
+    }
+
+    .space-instruction {
+        max-width: min(360px, calc(100vw - 42px)) !important;
+        margin: -8px auto 0 !important;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 960px) and (max-height: 620px) {
+    .space-letter-field {
+        height: 500px !important;
+        min-height: 500px !important;
+        margin-top: -54px !important;
+    }
+
+    .space-home .alphabet-grid {
+        inset: auto !important;
+        left: 50% !important;
+        top: 55% !important;
+        width: min(82vw, 720px) !important;
+        height: min(40vw, 335px) !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .orbit,
+    .sun-face {
+        left: 50% !important;
+        top: 55% !important;
+    }
+
+    .orbit {
+        transform: translate(-50%, -50%) rotate(-10deg) !important;
+    }
+
+    .sun-face {
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .orbit-1 { width: min(34vw, 290px) !important; height: min(14vw, 118px) !important; }
+    .orbit-2 { width: min(48vw, 410px) !important; height: min(20vw, 170px) !important; }
+    .orbit-3 { width: min(62vw, 530px) !important; height: min(27vw, 225px) !important; }
+    .orbit-4 { width: min(75vw, 650px) !important; height: min(33vw, 280px) !important; }
+
+    .space-home .letter-btn {
+        --tile-size: clamp(19px, 2.6vw, 22px) !important;
+    }
+
+    .space-home .letter-btn:nth-child(13) { --lx: 17% !important; --ly: 68% !important; }
+    .space-home .letter-btn:nth-child(19) { --lx: 30% !important; --ly: 55% !important; }
+    .space-home .letter-btn:nth-child(26) { --lx: 7% !important; --ly: 34% !important; }
 }
