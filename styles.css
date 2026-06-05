@@ -7237,3 +7237,53 @@ canvas {
     .space-home .letter-btn:nth-child(19) { --lx: 30% !important; --ly: 55% !important; }
     .space-home .letter-btn:nth-child(26) { --lx: 7% !important; --ly: 34% !important; }
 }
+
+/* ---------- Clear Learned Letter State ---------- */
+.space-home .letter-btn.visited {
+    border-color: #7cff72 !important;
+    outline: 2px solid rgba(124, 255, 114, 0.95);
+    outline-offset: 3px;
+    filter: brightness(1.04) saturate(0.94) !important;
+    box-shadow:
+        0 0 0 2px rgba(1, 24, 40, 0.82),
+        0 0 18px rgba(124, 255, 114, 0.88),
+        0 0 34px rgba(38, 221, 115, 0.34),
+        inset 0 3px 5px rgba(255, 255, 255, 0.38),
+        inset 0 -5px 0 rgba(0, 0, 0, 0.16) !important;
+}
+
+.space-home .letter-btn.visited::before {
+    content: '✓' !important;
+    position: absolute !important;
+    inset: auto !important;
+    top: -9px !important;
+    right: -9px !important;
+    left: auto !important;
+    z-index: 5 !important;
+    display: grid !important;
+    width: clamp(14px, calc(var(--tile-size, var(--ls, 42px)) * 0.46), 24px) !important;
+    height: clamp(14px, calc(var(--tile-size, var(--ls, 42px)) * 0.46), 24px) !important;
+    place-items: center !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 50% !important;
+    background: #28e66d !important;
+    color: #06213a !important;
+    font-family: Arial, sans-serif !important;
+    font-size: clamp(10px, calc(var(--tile-size, var(--ls, 42px)) * 0.28), 16px) !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    box-shadow: 0 0 10px rgba(40, 230, 109, 0.8), 0 3px 8px rgba(0, 0, 0, 0.32) !important;
+    pointer-events: none;
+}
+
+@media (max-width: 620px) {
+    .space-home .letter-btn.visited {
+        outline-width: 1px;
+        outline-offset: 2px;
+    }
+
+    .space-home .letter-btn.visited::before {
+        top: -7px !important;
+        right: -7px !important;
+    }
+}
