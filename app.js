@@ -117,7 +117,7 @@ const SONG_LIBRARY = {
         art: 'Sun',
         cardId: 'sing-card-planet',
         audioFile: 'planet_grove.mpeg',
-        videoFile: 'planet_party.mp4',
+        videoFile: 'planetpartygrove.mp4',
         startOffset: 16500,
         lines: [
             { text: 'A is for Apple, crunchy and sweet.', letters: ['A'], duration: 3500 },
