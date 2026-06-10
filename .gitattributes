@@ -1,3 +1,0 @@
-assets/video/abcsong.mp4 filter=lfs diff=lfs merge=lfs -text
-assets/video/nebulaletters.mp4 filter=lfs diff=lfs merge=lfs -text
-assets/video/rocketrhymes.mp4 filter=lfs diff=lfs merge=lfs -text
