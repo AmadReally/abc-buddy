@@ -6923,6 +6923,7 @@ canvas {
 .song-video-stage {
     width: min(100%, 980px);
     margin: 0 auto 24px;
+    scroll-margin-top: 84px;
     padding: 14px;
     border: 2px solid rgba(191, 238, 255, 0.38);
     border-radius: 18px;
@@ -6932,6 +6933,12 @@ canvas {
 
 .song-video-stage[hidden] {
     display: none;
+}
+
+.video-pause-controls {
+    display: flex;
+    justify-content: center;
+    margin: 12px 0 4px;
 }
 
 .song-video-header {

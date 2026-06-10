@@ -489,6 +489,67 @@ function startKaraokeSync(song, speedMultiplier) {
     state.karaokeSyncRAF = requestAnimationFrame(syncFrame);
 }
 
+function startVideoKaraokeSync(song, video) {
+    if (state.karaokeSyncRAF) cancelAnimationFrame(state.karaokeSyncRAF);
+
+    const startOffset = (song.startOffset || 0) / 1000;
+    const lineTimings = [];
+    let cumulative = startOffset;
+    song.lines.forEach(line => {
+        const durSec = line.duration / 1000;
+        lineTimings.push({ line, startSec: cumulative, durSec });
+        cumulative += durSec;
+    });
+
+    let prevLineIdx = -1;
+    let highlightedLetters = new Set();
+
+    function syncFrame() {
+        if (!state.videoSong || video.paused || video.ended) return;
+        const currentTime = video.currentTime;
+
+        let activeLineIdx = -1;
+        for (let i = 0; i < lineTimings.length; i++) {
+            if (currentTime >= lineTimings[i].startSec) activeLineIdx = i;
+        }
+
+        if (activeLineIdx >= 0 && activeLineIdx !== prevLineIdx) {
+            prevLineIdx = activeLineIdx;
+            highlightedLetters.clear();
+            renderKaraokeLine(lineTimings[activeLineIdx].line.text, 0);
+            $$('.sing-letter.highlighted').forEach(el => {
+                el.classList.remove('highlighted');
+                el.classList.add('done');
+            });
+        }
+
+        if (activeLineIdx >= 0) {
+            const { line, startSec, durSec } = lineTimings[activeLineIdx];
+            const progress = Math.min((currentTime - startSec) / durSec, 1);
+            const words = line.text.split(/\s+/).filter(Boolean);
+            renderKaraokeLine(line.text, Math.min(Math.floor(progress * words.length), words.length - 1));
+            const letters = line.letters;
+            const activeLetterIdx = Math.min(Math.floor(progress * letters.length), letters.length - 1);
+            for (let i = 0; i <= activeLetterIdx; i++) {
+                const letter = letters[i];
+                if (!highlightedLetters.has(letter)) {
+                    highlightedLetters.add(letter);
+                    $$('.sing-letter.highlighted').forEach(el => {
+                        el.classList.remove('highlighted');
+                        el.classList.add('done');
+                    });
+                    const singEl = $(`#sing-${letter}`);
+                    if (singEl) singEl.classList.add('highlighted');
+                }
+            }
+        }
+        state.karaokeSyncRAF = requestAnimationFrame(syncFrame);
+    }
+
+    if (song.lines.length > 0) renderKaraokeLine(song.lines[0].text, -1);
+    state.karaokeSyncRAF = requestAnimationFrame(syncFrame);
+}
+
 // â”€â”€â”€ Custom Audio System (Google AI Studio support) â”€â”€â”€â”€â”€
 // Checks for custom audio files in assets/audio/. Falls back to Speech Synthesis.
 const audioCache = {};
@@ -1446,8 +1507,12 @@ function stopSongVideo(resetText = true) {
         video.load();
     }
     if (stage) stage.hidden = true;
+    if (state.karaokeSyncRAF) { cancelAnimationFrame(state.karaokeSyncRAF); state.karaokeSyncRAF = null; }
     if ($('#song-video-status')) $('#song-video-status').textContent = '';
     if (resetText) {
+        $('.song-library').style.display = '';
+        $('#sing-letters').style.display = 'none';
+        $$('.sing-letter').forEach(el => el.classList.remove('highlighted', 'done'));
         $('#karaoke-line').textContent = 'Choose a song to start singing!';
     }
 }
@@ -1460,8 +1525,10 @@ async function startSongVideo(songId = state.currentSong || 'abc-rock') {
     stopSongVideo(false);
     setActiveSong(songId);
     state.videoSong = songId;
-    $('#sing-letters').style.display = 'none';
     $('#sing-controls').style.display = 'none';
+    $('.song-library').style.display = 'none';
+    $('#sing-letters').style.display = '';
+    $$('.sing-letter').forEach(el => el.classList.remove('highlighted', 'done'));
 
     const stage = $('#song-video-stage');
     const video = $('#song-video');
@@ -1469,6 +1536,7 @@ async function startSongVideo(songId = state.currentSong || 'abc-rock') {
     $('#song-video-title').textContent = song.title;
     status.textContent = `Loading ${song.title} video...`;
     stage.hidden = false;
+    stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
     video.muted = !state.soundEnabled;
     video.src = `assets/video/${song.videoFile}`;
     video.load();
@@ -1864,8 +1932,22 @@ function bindEvents() {
     $('#song-video').addEventListener('playing', () => {
         const song = SONG_LIBRARY[state.videoSong];
         if (!song) return;
-        $('#song-video-status').textContent = `Now watching ${song.title}. Sing along!`;
-        $('#karaoke-line').textContent = `Watch, listen, and sing along with ${song.title}!`;
+        $('#song-video-status').textContent = '';
+        const pauseBtn = $('#video-pause-btn');
+        if (pauseBtn) { pauseBtn.querySelector('span:last-child').textContent = 'Pause'; pauseBtn.querySelector('.btn-icon').textContent = '⏸'; }
+        startVideoKaraokeSync(song, $('#song-video'));
+    });
+
+    $('#song-video').addEventListener('pause', () => {
+        if (state.karaokeSyncRAF) { cancelAnimationFrame(state.karaokeSyncRAF); state.karaokeSyncRAF = null; }
+        const pauseBtn = $('#video-pause-btn');
+        if (pauseBtn) { pauseBtn.querySelector('span:last-child').textContent = 'Play'; pauseBtn.querySelector('.btn-icon').textContent = '▶'; }
+    });
+
+    $('#video-pause-btn').addEventListener('click', () => {
+        playClickSound();
+        const video = $('#song-video');
+        if (video.paused) video.play(); else video.pause();
     });
 
     $('#song-video').addEventListener('error', () => {
@@ -1878,6 +1960,7 @@ function bindEvents() {
     $('#song-video').addEventListener('ended', () => {
         const song = SONG_LIBRARY[state.videoSong];
         if (!song) return;
+        if (state.karaokeSyncRAF) { cancelAnimationFrame(state.karaokeSyncRAF); state.karaokeSyncRAF = null; }
         $('#song-video-status').textContent = `Great singing! ${song.title} is complete.`;
         launchConfetti();
     });

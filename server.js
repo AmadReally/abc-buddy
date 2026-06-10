@@ -18,6 +18,8 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
   '.mp3': 'audio/mpeg',
   '.mpeg': 'audio/mpeg',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
   '.wav': 'audio/wav',
   '.ogg': 'audio/ogg',
   '.ico': 'image/x-icon'
