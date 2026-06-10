@@ -134,7 +134,7 @@ const SONG_LIBRARY = {
         art: 'A E I',
         cardId: 'sing-card-vowels',
         audioFile: 'vowel_pop.mp3',
-        videoFile: 'vowel_pop.mp4',
+        videoFile: 'vowelpop.mp4',
         lines: [
             { text: 'A says Auh in Apple.', letters: ['A'], duration: 3200 },
             { text: 'E says Eh in Egg.', letters: ['E'], duration: 3200 },
@@ -1460,6 +1460,8 @@ async function startSongVideo(songId = state.currentSong || 'abc-rock') {
     stopSongVideo(false);
     setActiveSong(songId);
     state.videoSong = songId;
+    $('#sing-letters').style.display = 'none';
+    $('#sing-controls').style.display = 'none';
 
     const stage = $('#song-video-stage');
     const video = $('#song-video');
@@ -1485,6 +1487,8 @@ async function startSinging(songId = state.currentSong || 'abc-rock', options = 
     if (state.singing) stopSinging(false);
     setActiveSong(songId);
     state.singing = true;
+    $('#sing-letters').style.display = '';
+    $('#sing-controls').style.display = '';
 
     // Reset all letters
     $$('.sing-letter').forEach(el => {
@@ -1578,6 +1582,8 @@ function stopSinging(resetText = true) {
     }
     if (resetText) {
         $('#karaoke-line').textContent = 'Choose a song to start singing!';
+        $('#sing-letters').style.display = 'none';
+        $('#sing-controls').style.display = 'none';
     }
     $$('.sing-letter').forEach(el => {
         el.classList.remove('highlighted', 'done');
