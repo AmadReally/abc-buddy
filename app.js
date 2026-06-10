@@ -59,7 +59,7 @@ const SONG_LIBRARY = {
         art: 'Play',
         cardId: 'sing-card-play',
         audioFile: 'abc_song.mpeg',
-        videoFile: 'abc_song.mp4',
+        videoFile: 'abcsong.mp4',
         startOffset: 6000,
         lines: [
             { text: 'A B C D, clap with me!', letters: ['A', 'B', 'C', 'D'], duration: 2500 },
@@ -76,7 +76,7 @@ const SONG_LIBRARY = {
         art: 'A B C',
         cardId: 'sing-card-slow',
         audioFile: 'nebula.mpeg',
-        videoFile: 'nebula_letters.mp4',
+        videoFile: 'nebulaletters.mp4',
         startOffset: 7000,
         slow: true,
         lines: [
@@ -94,7 +94,7 @@ const SONG_LIBRARY = {
         art: 'Go',
         cardId: 'sing-card-rhyme',
         audioFile: 'Rocket_rhymes.mpeg',
-        videoFile: 'rocket_rhymes.mp4',
+        videoFile: 'rocketrhymes.mp4',
         startOffset: 7000,
         lines: [
             { text: 'Buh, buh, Ball.', letters: ['B'], duration: 15000 },

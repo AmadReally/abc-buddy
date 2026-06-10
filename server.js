@@ -25,21 +25,41 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
-function sendFile(res, filePath) {
+function sendFile(res, filePath, req) {
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-  fs.readFile(filePath, (error, content) => {
-    if (error) {
-      res.writeHead(error.code === 'ENOENT' ? 404 : 500, {
-        'Content-Type': 'text/plain; charset=utf-8'
-      });
-      res.end(error.code === 'ENOENT' ? 'Not found' : 'Server error');
+  fs.stat(filePath, (err, stat) => {
+    if (err) {
+      res.writeHead(err.code === 'ENOENT' ? 404 : 500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end(err.code === 'ENOENT' ? 'Not found' : 'Server error');
       return;
     }
 
-    res.writeHead(200, { 'Content-Type': contentType });
-    res.end(content);
+    const total = stat.size;
+    const rangeHeader = req.headers['range'];
+
+    if (rangeHeader) {
+      const match = rangeHeader.match(/bytes=(\d*)-(\d*)/);
+      const start = match[1] ? parseInt(match[1], 10) : 0;
+      const end = match[2] ? parseInt(match[2], 10) : total - 1;
+      const chunkSize = end - start + 1;
+
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${total}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': contentType
+      });
+      fs.createReadStream(filePath, { start, end }).pipe(res);
+    } else {
+      res.writeHead(200, {
+        'Accept-Ranges': 'bytes',
+        'Content-Length': total,
+        'Content-Type': contentType
+      });
+      fs.createReadStream(filePath).pipe(res);
+    }
   });
 }
 
@@ -55,7 +75,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  sendFile(res, filePath);
+  sendFile(res, filePath, req);
 });
 
 server.listen(PORT, () => {
