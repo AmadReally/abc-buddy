@@ -1973,7 +1973,7 @@ img {
 
 .header-inner {
     height: 90px;
-    padding: 0 66px;
+    padding: 0 18px 0 66px;
     justify-content: center;
     gap: 0;
     position: relative;
@@ -2050,7 +2050,7 @@ img {
 
 .sound-toggle {
     position: absolute;
-    right: 14px;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
     width: 44px;
@@ -2523,7 +2523,7 @@ img {
     .header-inner {
         height: 76px;
         gap: 10px;
-        padding: 0 62px;
+        padding: 0 12px 0 62px;
     }
 
     .main-nav {
