@@ -854,7 +854,8 @@ const NAV_TARGETS = {
     learn: '#alphabet-section',
     games: '#games-section',
     sing: '#sing-section',
-    ebook: '#ebook-section'
+    ebook: '#ebook-section',
+    slides: '#slides-section'
 };
 
 let navScrollTicking = false;

@@ -5185,6 +5185,57 @@ body {
     }
 }
 
+/* ---------- Slides Section ---------- */
+.slides-section {
+    padding: 112px var(--space-lg) 118px !important;
+    min-height: 100vh;
+}
+
+.slides-reader {
+    position: relative;
+    z-index: 2;
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    border: 3px solid rgba(137, 177, 255, 0.56);
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(8, 23, 61, 0.82);
+    box-shadow: 0 24px 58px rgba(0, 0, 0, 0.34), 0 0 28px rgba(137, 177, 255, 0.16);
+}
+
+.slides-frame {
+    display: block;
+    width: 100%;
+    height: min(78vh, 820px);
+    min-height: 480px;
+    border: none;
+    background: #000;
+}
+
+.slides-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+@media (max-width: 680px) {
+    .slides-section {
+        padding: 88px 14px 88px !important;
+    }
+
+    .slides-reader {
+        border-radius: 16px;
+    }
+
+    .slides-frame {
+        height: 72vh;
+        min-height: 400px;
+    }
+}
+
 /* ---------- Embed Rendering Polish ---------- */
 html {
     -webkit-font-smoothing: antialiased;
