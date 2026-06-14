@@ -219,18 +219,19 @@ img {
 /* Navigation */
 .main-nav {
     display: flex;
-    gap: var(--space-sm);
+    gap: 4px;
 }
 
 .nav-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
+    gap: 5px;
+    padding: 8px 13px;
     border-radius: var(--radius-full);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 15px;
+    font-size: 13px;
+    white-space: nowrap;
     color: rgba(255, 255, 255, 0.85);
     transition: all var(--transition-normal);
     position: relative;
