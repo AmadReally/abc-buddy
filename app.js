@@ -157,7 +157,7 @@ const LETTER_STROKES = {
 //   baseline ≈ y:215, x-height ≈ y:120, ascenders ≈ y:78, descenders ≈ y:252.
 const LETTER_STROKES_LOWER = {
     a: [
-        [[190, 128], [150, 116], [106, 148], [106, 190], [126, 212], [150, 215], [178, 212], [190, 215]]
+        [[196, 136], [168, 116], [148, 116], [110, 128], [98, 158], [98, 192], [116, 211], [148, 215], [178, 211], [196, 192], [196, 215]]
     ],
     b: [
         [[98, 78], [98, 215]],
@@ -178,7 +178,7 @@ const LETTER_STROKES_LOWER = {
         [[100, 148], [160, 148]]
     ],
     g: [
-        [[190, 128], [150, 116], [106, 148], [106, 190], [126, 212], [150, 215], [178, 212], [190, 192], [190, 250], [162, 262], [136, 258], [115, 248]]
+        [[196, 136], [168, 116], [148, 116], [110, 128], [98, 158], [98, 192], [116, 211], [148, 215], [178, 211], [196, 192], [196, 250], [168, 262], [140, 258], [118, 248]]
     ],
     h: [
         [[98, 78], [98, 215]],
@@ -210,7 +210,7 @@ const LETTER_STROKES_LOWER = {
         [[120, 106], [140, 88], [164, 88], [180, 104], [188, 132], [188, 215]]
     ],
     o: [
-        [[150, 116], [118, 124], [106, 150], [106, 188], [118, 212], [150, 215], [182, 212], [194, 188], [194, 150], [182, 124], [165, 118]]
+        [[150, 116], [110, 128], [98, 158], [98, 192], [116, 211], [148, 215], [180, 211], [196, 192], [196, 158], [180, 128], [165, 118]]
     ],
     p: [
         [[98, 120], [98, 250]],
@@ -1927,7 +1927,7 @@ function initTracing() {
         const strokeMap = state.isUppercase
             ? LETTER_STROKES[state.currentLetter]
             : LETTER_STROKES_LOWER[state.currentLetter.toLowerCase()];
-        drawStrokeGuides(ctx, strokeMap, letter);
+        drawStrokeGuides(ctx, strokeMap);
     }
 
     function startDraw(e) {
@@ -1973,39 +1973,11 @@ function initTracing() {
     canvas._drawGuide = drawLetterGuide;
 }
 
-function drawStrokeGuides(ctx, strokes, letter) {
+function drawStrokeGuides(ctx, strokes) {
     if (!strokes) return;
 
-    // Measure the actual rendered glyph so guides map onto the real letter.
-    // ctx.font / textAlign / textBaseline are already set by drawLetterGuide.
-    const m   = ctx.measureText(letter);
-    const refX = 150, refY = 150;
-    const gl  = refX - m.actualBoundingBoxLeft;
-    const gr  = refX + m.actualBoundingBoxRight;
-    const gt  = refY - m.actualBoundingBoxAscent;
-    const gb  = refY + m.actualBoundingBoxDescent;
-    const gcx = (gl + gr) / 2;
-    const gcy = (gt + gb) / 2;
-    const gw  = Math.max(gr - gl, 1);
-    const gh  = Math.max(gb - gt, 1);
-
-    // Compute design-space bounding box from the stroke data itself.
-    let dL = Infinity, dR = -Infinity, dT = Infinity, dB = -Infinity;
-    for (const s of strokes) for (const [x, y] of s) {
-        if (x < dL) dL = x;  if (x > dR) dR = x;
-        if (y < dT) dT = y;  if (y > dB) dB = y;
-    }
-    const dw  = Math.max(dR - dL, 1);
-    const dh  = Math.max(dB - dT, 1);
-    const dcx = (dL + dR) / 2;
-    const dcy = (dT + dB) / 2;
-
-    // Non-uniform scale: fit design space to actual glyph bounds independently
-    // per axis so guides stretch to fill the real letter in both directions.
-    const sx = gw / dw;
-    const sy = gh / dh;
-    const tf = pts => pts.map(([x, y]) => [gcx + (x - dcx) * sx, gcy + (y - dcy) * sy]);
-    const scaledStrokes = strokes.map(tf);
+    // Stroke coordinates are direct canvas pixel positions (300x300 space).
+    const scaledStrokes = strokes;
 
     const colors      = ['#4CAF50', '#FF9800', '#2196F3', '#E91E63'];
     const colorsFaint = ['rgba(76,175,80,0.45)', 'rgba(255,152,0,0.45)', 'rgba(33,150,243,0.45)', 'rgba(233,30,99,0.45)'];
