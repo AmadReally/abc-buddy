@@ -157,8 +157,7 @@ const LETTER_STROKES = {
 //   baseline ≈ y:215, x-height ≈ y:120, ascenders ≈ y:78, descenders ≈ y:252.
 const LETTER_STROKES_LOWER = {
     a: [
-        [[150, 116], [118, 124], [106, 150], [106, 188], [126, 212], [150, 215], [178, 212], [190, 188], [190, 148]],
-        [[190, 116], [190, 215]]
+        [[150, 116], [118, 124], [106, 150], [106, 188], [126, 212], [150, 215], [178, 212], [190, 188], [190, 162], [190, 215]]
     ],
     b: [
         [[98, 78], [98, 215]],
@@ -1930,7 +1929,7 @@ function initTracing() {
         const strokeMap = state.isUppercase
             ? LETTER_STROKES[state.currentLetter]
             : LETTER_STROKES_LOWER[state.currentLetter.toLowerCase()];
-        drawStrokeGuides(ctx, strokeMap);
+        drawStrokeGuides(ctx, strokeMap, letter);
     }
 
     function startDraw(e) {
@@ -1976,26 +1975,55 @@ function initTracing() {
     canvas._drawGuide = drawLetterGuide;
 }
 
-function drawStrokeGuides(ctx, strokes) {
+function drawStrokeGuides(ctx, strokes, letter) {
     if (!strokes) return;
+
+    // Measure the actual rendered glyph so guides map onto the real letter.
+    // ctx.font / textAlign / textBaseline are already set by drawLetterGuide.
+    const m   = ctx.measureText(letter);
+    const refX = 150, refY = 150;
+    const gl  = refX - m.actualBoundingBoxLeft;
+    const gr  = refX + m.actualBoundingBoxRight;
+    const gt  = refY - m.actualBoundingBoxAscent;
+    const gb  = refY + m.actualBoundingBoxDescent;
+    const gcx = (gl + gr) / 2;
+    const gcy = (gt + gb) / 2;
+    const gw  = Math.max(gr - gl, 1);
+    const gh  = Math.max(gb - gt, 1);
+
+    // Compute design-space bounding box from the stroke data itself.
+    let dL = Infinity, dR = -Infinity, dT = Infinity, dB = -Infinity;
+    for (const s of strokes) for (const [x, y] of s) {
+        if (x < dL) dL = x;  if (x > dR) dR = x;
+        if (y < dT) dT = y;  if (y > dB) dB = y;
+    }
+    const dw  = Math.max(dR - dL, 1);
+    const dh  = Math.max(dB - dT, 1);
+    const dcx = (dL + dR) / 2;
+    const dcy = (dT + dB) / 2;
+
+    // Non-uniform scale: fit design space to actual glyph bounds independently
+    // per axis so guides stretch to fill the real letter in both directions.
+    const sx = gw / dw;
+    const sy = gh / dh;
+    const tf = pts => pts.map(([x, y]) => [gcx + (x - dcx) * sx, gcy + (y - dcy) * sy]);
+    const scaledStrokes = strokes.map(tf);
 
     const colors      = ['#4CAF50', '#FF9800', '#2196F3', '#E91E63'];
     const colorsFaint = ['rgba(76,175,80,0.45)', 'rgba(255,152,0,0.45)', 'rgba(33,150,243,0.45)', 'rgba(233,30,99,0.45)'];
 
-    // Pre-compute dot display positions, nudging any that overlap a previous dot
+    // Pre-compute dot positions, nudging any that overlap a previous dot.
     const dotPos = [];
-    for (let si = 0; si < strokes.length; si++) {
-        const [sx, sy] = strokes[si][0];
-        let dx = sx, dy = sy;
+    for (let si = 0; si < scaledStrokes.length; si++) {
+        const [sx0, sy0] = scaledStrokes[si][0];
+        let dx = sx0, dy = sy0;
         for (let j = 0; j < si; j++) {
             if (Math.hypot(dx - dotPos[j][0], dy - dotPos[j][1]) < 30) {
-                // Nudge perpendicular-clockwise to the stroke's initial direction
-                const nxt = strokes[si][1] || strokes[si][0];
-                const vx = nxt[0] - sx, vy = nxt[1] - sy;
+                const nxt = scaledStrokes[si][1] || scaledStrokes[si][0];
+                const vx = nxt[0] - sx0, vy = nxt[1] - sy0;
                 const len = Math.hypot(vx, vy) || 1;
-                dx = sx + (vy / len) * 34;
-                dy = sy - (vx / len) * 34;
-                // Clamp inside canvas
+                dx = sx0 + (vy / len) * 34;
+                dy = sy0 - (vx / len) * 34;
                 dx = Math.max(16, Math.min(284, dx));
                 dy = Math.max(16, Math.min(284, dy));
                 break;
@@ -2004,13 +2032,13 @@ function drawStrokeGuides(ctx, strokes) {
         dotPos.push([dx, dy]);
     }
 
-    strokes.forEach((points, si) => {
+    scaledStrokes.forEach((points, si) => {
         if (points.length < 2) return;
         const color      = colors[si % colors.length];
         const colorFaint = colorsFaint[si % colorsFaint.length];
         const [dotX, dotY] = dotPos[si];
 
-        // Dashed guide path (always starts at the true stroke origin)
+        // Dashed guide path
         ctx.beginPath();
         ctx.moveTo(points[0][0], points[0][1]);
         for (let i = 1; i < points.length; i++) ctx.lineTo(points[i][0], points[i][1]);
@@ -2023,10 +2051,10 @@ function drawStrokeGuides(ctx, strokes) {
         ctx.setLineDash([]);
 
         // Arrowhead at end
-        const last = points[points.length - 1];
-        const prev = points[points.length - 2];
+        const last  = points[points.length - 1];
+        const prev  = points[points.length - 2];
         const angle = Math.atan2(last[1] - prev[1], last[0] - prev[0]);
-        const aLen = 13;
+        const aLen  = 13;
         ctx.beginPath();
         ctx.moveTo(last[0], last[1]);
         ctx.lineTo(last[0] - aLen * Math.cos(angle - Math.PI / 6), last[1] - aLen * Math.sin(angle - Math.PI / 6));
@@ -2036,7 +2064,7 @@ function drawStrokeGuides(ctx, strokes) {
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        // Thin leader line from nudged dot back to the true start (when offset)
+        // Leader line from nudged dot to true stroke start
         if (Math.hypot(dotX - points[0][0], dotY - points[0][1]) > 4) {
             ctx.beginPath();
             ctx.moveTo(dotX, dotY);
@@ -2048,7 +2076,7 @@ function drawStrokeGuides(ctx, strokes) {
             ctx.setLineDash([]);
         }
 
-        // Numbered dot (at potentially nudged position)
+        // Numbered dot
         ctx.beginPath();
         ctx.arc(dotX, dotY, 14, 0, Math.PI * 2);
         ctx.fillStyle = color;
@@ -2056,7 +2084,6 @@ function drawStrokeGuides(ctx, strokes) {
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 2.5;
         ctx.stroke();
-
         ctx.fillStyle = 'white';
         ctx.font = 'bold 13px sans-serif';
         ctx.textAlign = 'center';
