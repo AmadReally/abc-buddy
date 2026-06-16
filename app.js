@@ -35,112 +35,118 @@ const LETTER_DATA = {
 
 // Stroke guide points for each letter on a 300x300 canvas (letter centered at 150,150)
 // Each entry is an array of strokes; each stroke is an array of [x,y] waypoints
-// Each stroke starts at a UNIQUE position so numbered dots never overlap.
-// Strokes that would share a start point are either reversed or merged.
+// Natural stroke order (top-down). Overlapping start dots are offset in drawStrokeGuides.
 const LETTER_STROKES = {
     A: [
-        [[85, 255], [150, 55], [215, 255]], // up-left then down-right in one path
-        [[100, 170], [200, 170]]             // crossbar
+        [[150, 60], [85, 255]],
+        [[150, 60], [215, 255]],
+        [[100, 170], [200, 170]]
     ],
     B: [
-        [[95, 255], [95, 55]],                              // vertical upward (start bottom)
-        [[95, 55], [178, 95], [95, 158], [178, 208], [95, 255]] // both bumps
+        [[95, 60], [95, 255]],
+        [[95, 60], [178, 100], [95, 158]],
+        [[95, 158], [185, 208], [95, 255]]
     ],
     C: [
-        [[205, 90], [150, 55], [88, 155], [150, 255], [205, 220]]
+        [[205, 90], [150, 60], [88, 155], [150, 255], [205, 220]]
     ],
     D: [
-        [[95, 55], [95, 255]],              // vertical
-        [[95, 255], [195, 155], [95, 55]]   // curve reversed so dot is at bottom
+        [[95, 60], [95, 255]],
+        [[95, 60], [195, 155], [95, 255]]
     ],
     E: [
-        [[95, 55], [95, 255]],    // vertical
-        [[195, 55], [95, 55]],    // top bar right-to-left (dot at right)
-        [[95, 155], [175, 155]],  // middle bar
-        [[195, 255], [95, 255]]   // bottom bar right-to-left (dot at right)
+        [[95, 60], [95, 255]],
+        [[95, 60], [195, 60]],
+        [[95, 155], [175, 155]],
+        [[95, 255], [195, 255]]
     ],
     F: [
-        [[95, 55], [95, 255]],   // vertical
-        [[195, 55], [95, 55]],   // top bar right-to-left
-        [[95, 155], [175, 155]]  // middle bar
+        [[95, 60], [95, 255]],
+        [[95, 60], [195, 60]],
+        [[95, 155], [175, 155]]
     ],
     G: [
-        [[205, 92], [150, 55], [85, 155], [150, 255], [215, 255], [215, 158], [163, 158]]
+        [[205, 92], [150, 60], [85, 155], [150, 255], [215, 255], [215, 158], [163, 158]]
     ],
     H: [
-        [[95, 55], [95, 255]],
-        [[205, 55], [205, 255]],
+        [[95, 60], [95, 255]],
+        [[205, 60], [205, 255]],
         [[95, 155], [205, 155]]
     ],
     I: [
-        [[112, 55], [188, 55]],
-        [[150, 55], [150, 255]],
+        [[112, 60], [188, 60]],
+        [[150, 60], [150, 255]],
         [[112, 255], [188, 255]]
     ],
     J: [
-        [[112, 55], [188, 55]],
-        [[155, 55], [155, 225], [127, 252], [92, 235]]
+        [[112, 60], [188, 60]],
+        [[155, 60], [155, 225], [127, 252], [92, 235]]
     ],
     K: [
-        [[95, 55], [95, 255]],
-        [[205, 55], [95, 155]],  // diagonal from top-right to middle
-        [[95, 155], [205, 255]]  // diagonal from middle to bottom-right
+        [[95, 60], [95, 255]],
+        [[205, 60], [95, 155]],
+        [[95, 155], [205, 255]]
     ],
     L: [
-        [[95, 55], [95, 255]],
+        [[95, 60], [95, 255]],
         [[95, 255], [205, 255]]
     ],
     M: [
-        [[85, 255], [85, 55], [150, 168], [215, 55], [215, 255]]
+        [[85, 60], [85, 255]],
+        [[85, 60], [150, 168]],
+        [[150, 168], [215, 60]],
+        [[215, 60], [215, 255]]
     ],
     N: [
-        [[95, 255], [95, 55], [205, 255], [205, 55]]
+        [[95, 60], [95, 255]],
+        [[95, 60], [205, 255]],
+        [[205, 60], [205, 255]]
     ],
     O: [
-        [[150, 55], [90, 90], [70, 155], [90, 220], [150, 255], [210, 220], [230, 155], [210, 90], [150, 55]]
+        [[150, 60], [90, 90], [70, 155], [90, 220], [150, 255], [210, 220], [230, 155], [210, 90], [150, 60]]
     ],
     P: [
-        [[95, 255], [95, 55]],           // vertical upward (start bottom)
-        [[95, 55], [188, 92], [95, 162]] // bump
+        [[95, 60], [95, 255]],
+        [[95, 60], [188, 95], [95, 162]]
     ],
     Q: [
-        [[150, 55], [90, 90], [70, 155], [90, 220], [150, 255], [210, 220], [230, 155], [210, 90], [150, 55]],
-        [[168, 208], [212, 258]]
+        [[150, 60], [90, 90], [70, 155], [90, 220], [150, 255], [210, 220], [230, 155], [210, 90], [150, 60]],
+        [[168, 210], [212, 258]]
     ],
     R: [
-        [[95, 255], [95, 55]],           // vertical upward (start bottom)
-        [[95, 55], [185, 90], [95, 160]], // bump
-        [[110, 160], [208, 255]]          // leg
+        [[95, 60], [95, 255]],
+        [[95, 60], [185, 92], [95, 160]],
+        [[110, 160], [208, 255]]
     ],
     S: [
-        [[202, 88], [155, 55], [93, 72], [78, 120], [132, 155], [175, 190], [175, 228], [128, 255], [80, 242]]
+        [[202, 88], [155, 60], [93, 72], [78, 120], [132, 155], [175, 190], [175, 228], [128, 255], [80, 242]]
     ],
     T: [
-        [[90, 55], [210, 55]],
-        [[150, 55], [150, 255]]
+        [[90, 60], [210, 60]],
+        [[150, 60], [150, 255]]
     ],
     U: [
-        [[95, 55], [95, 210], [122, 250], [150, 258], [178, 250], [205, 210], [205, 55]]
+        [[95, 60], [95, 210], [122, 250], [150, 258], [178, 250], [205, 210], [205, 60]]
     ],
     V: [
-        [[85, 55], [150, 255]],
-        [[150, 255], [215, 55]]
+        [[85, 60], [150, 255]],
+        [[150, 255], [215, 60]]
     ],
     W: [
-        [[75, 55], [105, 255], [150, 165], [195, 255], [225, 55]]
+        [[75, 60], [105, 255], [150, 165], [195, 255], [225, 60]]
     ],
     X: [
-        [[90, 55], [210, 255]],
-        [[210, 55], [90, 255]]
+        [[90, 60], [210, 255]],
+        [[210, 60], [90, 255]]
     ],
     Y: [
-        [[90, 55], [150, 155]],
-        [[210, 55], [150, 155]],
+        [[90, 60], [150, 155]],
+        [[210, 60], [150, 155]],
         [[150, 155], [150, 255]]
     ],
     Z: [
-        [[90, 55], [210, 55]],
-        [[210, 55], [90, 255]],
+        [[90, 60], [210, 60]],
+        [[210, 60], [90, 255]],
         [[90, 255], [210, 255]]
     ]
 };
@@ -1866,12 +1872,35 @@ function drawStrokeGuides(ctx, letter) {
     const colors      = ['#4CAF50', '#FF9800', '#2196F3', '#E91E63'];
     const colorsFaint = ['rgba(76,175,80,0.45)', 'rgba(255,152,0,0.45)', 'rgba(33,150,243,0.45)', 'rgba(233,30,99,0.45)'];
 
+    // Pre-compute dot display positions, nudging any that overlap a previous dot
+    const dotPos = [];
+    for (let si = 0; si < strokes.length; si++) {
+        const [sx, sy] = strokes[si][0];
+        let dx = sx, dy = sy;
+        for (let j = 0; j < si; j++) {
+            if (Math.hypot(dx - dotPos[j][0], dy - dotPos[j][1]) < 30) {
+                // Nudge perpendicular-clockwise to the stroke's initial direction
+                const nxt = strokes[si][1] || strokes[si][0];
+                const vx = nxt[0] - sx, vy = nxt[1] - sy;
+                const len = Math.hypot(vx, vy) || 1;
+                dx = sx + (vy / len) * 34;
+                dy = sy - (vx / len) * 34;
+                // Clamp inside canvas
+                dx = Math.max(16, Math.min(284, dx));
+                dy = Math.max(16, Math.min(284, dy));
+                break;
+            }
+        }
+        dotPos.push([dx, dy]);
+    }
+
     strokes.forEach((points, si) => {
         if (points.length < 2) return;
         const color      = colors[si % colors.length];
         const colorFaint = colorsFaint[si % colorsFaint.length];
+        const [dotX, dotY] = dotPos[si];
 
-        // Dashed guide path
+        // Dashed guide path (always starts at the true stroke origin)
         ctx.beginPath();
         ctx.moveTo(points[0][0], points[0][1]);
         for (let i = 1; i < points.length; i++) ctx.lineTo(points[i][0], points[i][1]);
@@ -1897,10 +1926,21 @@ function drawStrokeGuides(ctx, letter) {
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
-        // Numbered start dot
-        const start = points[0];
+        // Thin leader line from nudged dot back to the true start (when offset)
+        if (Math.hypot(dotX - points[0][0], dotY - points[0][1]) > 4) {
+            ctx.beginPath();
+            ctx.moveTo(dotX, dotY);
+            ctx.lineTo(points[0][0], points[0][1]);
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([3, 3]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // Numbered dot (at potentially nudged position)
         ctx.beginPath();
-        ctx.arc(start[0], start[1], 14, 0, Math.PI * 2);
+        ctx.arc(dotX, dotY, 14, 0, Math.PI * 2);
         ctx.fillStyle = color;
         ctx.fill();
         ctx.strokeStyle = 'white';
@@ -1911,7 +1951,7 @@ function drawStrokeGuides(ctx, letter) {
         ctx.font = 'bold 13px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText((si + 1).toString(), start[0], start[1]);
+        ctx.fillText((si + 1).toString(), dotX, dotY);
     });
 }
 
