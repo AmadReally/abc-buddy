@@ -3511,8 +3511,11 @@ img {
 
 .footer-text {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    margin-left: auto;
+    text-align: right;
 }
 
 .footer-tagline {
