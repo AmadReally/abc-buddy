@@ -33,6 +33,118 @@ const LETTER_DATA = {
     Z: { sound: 'Zzz', spokenSound: 'Zzz as in zebra', emoji: '\uD83E\uDD93', word: 'Zebra', desc: 'An animal with black and white stripes!', action: 'Can you say Z?', color: '#37474F' }
 };
 
+// Stroke guide points for each letter on a 300x300 canvas (letter centered at 150,150)
+// Each entry is an array of strokes; each stroke is an array of [x,y] waypoints
+const LETTER_STROKES = {
+    A: [
+        [[150, 55], [85, 255]],
+        [[150, 55], [215, 255]],
+        [[100, 170], [200, 170]]
+    ],
+    B: [
+        [[95, 55], [95, 255]],
+        [[95, 55], [178, 95], [95, 158]],
+        [[95, 158], [188, 205], [95, 255]]
+    ],
+    C: [
+        [[200, 92], [150, 55], [88, 155], [150, 255], [200, 218]]
+    ],
+    D: [
+        [[95, 55], [95, 255]],
+        [[95, 55], [195, 155], [95, 255]]
+    ],
+    E: [
+        [[95, 55], [95, 255]],
+        [[95, 55], [195, 55]],
+        [[95, 155], [175, 155]],
+        [[95, 255], [195, 255]]
+    ],
+    F: [
+        [[95, 55], [95, 255]],
+        [[95, 55], [195, 55]],
+        [[95, 155], [175, 155]]
+    ],
+    G: [
+        [[202, 95], [150, 55], [88, 155], [150, 255], [210, 225], [210, 158], [163, 158]]
+    ],
+    H: [
+        [[95, 55], [95, 255]],
+        [[205, 55], [205, 255]],
+        [[95, 155], [205, 155]]
+    ],
+    I: [
+        [[112, 55], [188, 55]],
+        [[150, 55], [150, 255]],
+        [[112, 255], [188, 255]]
+    ],
+    J: [
+        [[112, 55], [188, 55]],
+        [[155, 55], [155, 225], [127, 252], [92, 235]]
+    ],
+    K: [
+        [[95, 55], [95, 255]],
+        [[95, 158], [205, 55]],
+        [[132, 130], [205, 255]]
+    ],
+    L: [
+        [[95, 55], [95, 255]],
+        [[95, 255], [205, 255]]
+    ],
+    M: [
+        [[85, 255], [85, 55], [150, 168], [215, 55], [215, 255]]
+    ],
+    N: [
+        [[95, 255], [95, 55], [205, 255], [205, 55]]
+    ],
+    O: [
+        [[150, 55], [90, 92], [70, 155], [90, 218], [150, 255], [210, 218], [230, 155], [210, 92], [150, 55]]
+    ],
+    P: [
+        [[95, 55], [95, 255]],
+        [[95, 55], [188, 95], [95, 162]]
+    ],
+    Q: [
+        [[150, 55], [90, 92], [70, 155], [90, 218], [150, 255], [210, 218], [230, 155], [210, 92], [150, 55]],
+        [[168, 208], [212, 255]]
+    ],
+    R: [
+        [[95, 55], [95, 255]],
+        [[95, 55], [185, 92], [95, 160]],
+        [[112, 160], [208, 255]]
+    ],
+    S: [
+        [[200, 88], [155, 55], [95, 72], [80, 120], [132, 155], [175, 188], [175, 228], [130, 255], [82, 242]]
+    ],
+    T: [
+        [[90, 55], [210, 55]],
+        [[150, 55], [150, 255]]
+    ],
+    U: [
+        [[95, 55], [95, 210], [120, 248], [150, 258], [180, 248], [205, 210], [205, 55]]
+    ],
+    V: [
+        [[85, 55], [150, 255]],
+        [[150, 255], [215, 55]]
+    ],
+    W: [
+        [[75, 55], [105, 255], [150, 165], [195, 255], [225, 55]]
+    ],
+    X: [
+        [[90, 55], [210, 255]],
+        [[210, 55], [90, 255]]
+    ],
+    Y: [
+        [[90, 55], [150, 155]],
+        [[210, 55], [150, 155]],
+        [[150, 155], [150, 255]]
+    ],
+    Z: [
+        [[90, 55], [210, 55]],
+        [[210, 55], [90, 255]],
+        [[90, 255], [210, 255]]
+    ]
+};
+
 const LETTER_COLORS = [
     '#EF5350', '#42A5F5', '#FFA726', '#66BB6A', '#AB47BC',
     '#26A69A', '#7E57C2', '#EC407A', '#5C6BC0', '#FF7043',
@@ -1688,17 +1800,20 @@ function initTracing() {
         // Draw guide letter
         const letter = state.isUppercase ? state.currentLetter : state.currentLetter.toLowerCase();
         ctx.font = 'bold 200px "Baloo 2", cursive';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(letter, canvas.width / 2, canvas.height / 2);
 
         // Dotted outline
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.12)';
         ctx.lineWidth = 2;
         ctx.setLineDash([5, 5]);
         ctx.strokeText(letter, canvas.width / 2, canvas.height / 2);
         ctx.setLineDash([]);
+
+        // Draw numbered stroke guides
+        drawStrokeGuides(ctx, state.currentLetter);
     }
 
     function startDraw(e) {
@@ -1742,6 +1857,62 @@ function initTracing() {
 
     // Store drawLetterGuide for later use
     canvas._drawGuide = drawLetterGuide;
+}
+
+function drawStrokeGuides(ctx, letter) {
+    const strokes = LETTER_STROKES[letter];
+    if (!strokes) return;
+
+    const colors      = ['#4CAF50', '#FF9800', '#2196F3', '#E91E63'];
+    const colorsFaint = ['rgba(76,175,80,0.45)', 'rgba(255,152,0,0.45)', 'rgba(33,150,243,0.45)', 'rgba(233,30,99,0.45)'];
+
+    strokes.forEach((points, si) => {
+        if (points.length < 2) return;
+        const color      = colors[si % colors.length];
+        const colorFaint = colorsFaint[si % colorsFaint.length];
+
+        // Dashed guide path
+        ctx.beginPath();
+        ctx.moveTo(points[0][0], points[0][1]);
+        for (let i = 1; i < points.length; i++) ctx.lineTo(points[i][0], points[i][1]);
+        ctx.strokeStyle = colorFaint;
+        ctx.lineWidth = 3.5;
+        ctx.setLineDash([9, 6]);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Arrowhead at end
+        const last = points[points.length - 1];
+        const prev = points[points.length - 2];
+        const angle = Math.atan2(last[1] - prev[1], last[0] - prev[0]);
+        const aLen = 13;
+        ctx.beginPath();
+        ctx.moveTo(last[0], last[1]);
+        ctx.lineTo(last[0] - aLen * Math.cos(angle - Math.PI / 6), last[1] - aLen * Math.sin(angle - Math.PI / 6));
+        ctx.moveTo(last[0], last[1]);
+        ctx.lineTo(last[0] - aLen * Math.cos(angle + Math.PI / 6), last[1] - aLen * Math.sin(angle + Math.PI / 6));
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Numbered start dot
+        const start = points[0];
+        ctx.beginPath();
+        ctx.arc(start[0], start[1], 14, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText((si + 1).toString(), start[0], start[1]);
+    });
 }
 
 function showTracing() {
