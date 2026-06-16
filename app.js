@@ -152,6 +152,113 @@ const LETTER_STROKES = {
     ]
 };
 
+// Lowercase letter stroke guides.
+// Calibrated to Baloo 2 200px on 300×300 canvas:
+//   baseline ≈ y:215, x-height ≈ y:140, ascenders ≈ y:78, descenders ≈ y:258.
+const LETTER_STROKES_LOWER = {
+    a: [
+        [[184, 150], [150, 126], [112, 148], [112, 182], [150, 210], [184, 192]],
+        [[184, 126], [184, 215]]
+    ],
+    b: [
+        [[98, 78], [98, 215]],
+        [[98, 168], [126, 140], [170, 148], [178, 182], [140, 212], [98, 215]]
+    ],
+    c: [
+        [[186, 148], [150, 126], [110, 148], [110, 182], [150, 210], [186, 198]]
+    ],
+    d: [
+        [[114, 148], [150, 126], [186, 148], [186, 182], [150, 210], [114, 198]],
+        [[186, 78], [186, 215]]
+    ],
+    e: [
+        [[110, 170], [190, 170], [190, 150], [150, 126], [110, 150], [110, 184], [150, 210], [186, 198]]
+    ],
+    f: [
+        [[172, 92], [162, 78], [134, 78], [120, 95], [120, 215]],
+        [[100, 145], [162, 145]]
+    ],
+    g: [
+        [[184, 150], [150, 126], [112, 148], [112, 182], [150, 210], [184, 194]],
+        [[184, 128], [184, 248], [158, 260], [124, 252]]
+    ],
+    h: [
+        [[98, 78], [98, 215]],
+        [[98, 155], [126, 128], [168, 130], [184, 152], [184, 215]]
+    ],
+    i: [
+        [[150, 140], [150, 215]],
+        [[144, 88], [156, 94]]
+    ],
+    j: [
+        [[155, 140], [155, 242], [132, 258], [110, 246]],
+        [[149, 88], [161, 94]]
+    ],
+    k: [
+        [[98, 78], [98, 215]],
+        [[184, 140], [98, 178]],
+        [[98, 178], [184, 215]]
+    ],
+    l: [
+        [[150, 78], [150, 215]]
+    ],
+    m: [
+        [[98, 140], [98, 215]],
+        [[98, 140], [120, 116], [148, 122], [152, 143], [152, 215]],
+        [[152, 140], [174, 116], [202, 122], [202, 215]]
+    ],
+    n: [
+        [[106, 140], [106, 215]],
+        [[106, 140], [134, 116], [172, 122], [186, 145], [186, 215]]
+    ],
+    o: [
+        [[150, 126], [110, 138], [98, 168], [110, 198], [150, 212], [190, 198], [202, 168], [190, 138], [150, 126]]
+    ],
+    p: [
+        [[98, 140], [98, 258]],
+        [[98, 168], [126, 140], [170, 148], [178, 182], [140, 212], [98, 215]]
+    ],
+    q: [
+        [[114, 148], [150, 126], [186, 148], [186, 182], [150, 210], [114, 198]],
+        [[186, 126], [186, 258]]
+    ],
+    r: [
+        [[110, 140], [110, 215]],
+        [[110, 146], [134, 120], [162, 118], [176, 130]]
+    ],
+    s: [
+        [[180, 138], [150, 122], [116, 134], [112, 158], [140, 172], [168, 184], [172, 202], [148, 212], [110, 202]]
+    ],
+    t: [
+        [[150, 88], [150, 215]],
+        [[112, 142], [186, 142]]
+    ],
+    u: [
+        [[108, 140], [108, 193], [130, 213], [150, 215], [170, 213], [192, 193], [192, 140]],
+        [[192, 140], [192, 215]]
+    ],
+    v: [
+        [[108, 140], [150, 215]],
+        [[192, 140], [150, 215]]
+    ],
+    w: [
+        [[88, 140], [116, 215], [150, 168], [184, 215], [212, 140]]
+    ],
+    x: [
+        [[112, 140], [188, 215]],
+        [[188, 140], [112, 215]]
+    ],
+    y: [
+        [[108, 140], [150, 183]],
+        [[192, 140], [150, 183], [136, 215], [114, 252]]
+    ],
+    z: [
+        [[110, 140], [190, 140]],
+        [[190, 140], [110, 215]],
+        [[110, 215], [190, 215]]
+    ]
+};
+
 const LETTER_COLORS = [
     '#EF5350', '#42A5F5', '#FFA726', '#66BB6A', '#AB47BC',
     '#26A69A', '#7E57C2', '#EC407A', '#5C6BC0', '#FF7043',
@@ -1819,16 +1926,11 @@ function initTracing() {
         ctx.strokeText(letter, canvas.width / 2, canvas.height / 2);
         ctx.setLineDash([]);
 
-        // Stroke guides for uppercase only; show hint for lowercase
-        if (state.isUppercase) {
-            drawStrokeGuides(ctx, state.currentLetter);
-        } else {
-            ctx.fillStyle = 'rgba(0,0,0,0.28)';
-            ctx.font = 'bold 12px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('Trace the shape! ✏️', 150, 278);
-        }
+        // Stroke guides for both cases
+        const strokeMap = state.isUppercase
+            ? LETTER_STROKES[state.currentLetter]
+            : LETTER_STROKES_LOWER[state.currentLetter.toLowerCase()];
+        drawStrokeGuides(ctx, strokeMap);
     }
 
     function startDraw(e) {
@@ -1874,8 +1976,7 @@ function initTracing() {
     canvas._drawGuide = drawLetterGuide;
 }
 
-function drawStrokeGuides(ctx, letter) {
-    const strokes = LETTER_STROKES[letter];
+function drawStrokeGuides(ctx, strokes) {
     if (!strokes) return;
 
     const colors      = ['#4CAF50', '#FF9800', '#2196F3', '#E91E63'];
@@ -2046,6 +2147,8 @@ function bindEvents() {
         $('#lowercase-btn').classList.remove('active');
         updateLetterDisplay(state.currentLetter);
         playClickSound();
+        const tc = $('#trace-canvas');
+        if (tc && tc._drawGuide) tc._drawGuide();
     });
 
     $('#lowercase-btn').addEventListener('click', () => {
@@ -2054,6 +2157,8 @@ function bindEvents() {
         $('#uppercase-btn').classList.remove('active');
         updateLetterDisplay(state.currentLetter);
         playClickSound();
+        const tc = $('#trace-canvas');
+        if (tc && tc._drawGuide) tc._drawGuide();
     });
 
     // Play sound button
