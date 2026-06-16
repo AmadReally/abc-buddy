@@ -1998,9 +1998,9 @@ img {
 
 .header-inner {
     height: 90px;
-    padding: 0 18px 0 66px;
+    padding: 0 18px;
     justify-content: center;
-    gap: 0;
+    gap: 8px;
     position: relative;
 }
 
@@ -2074,16 +2074,15 @@ img {
 }
 
 .sound-toggle {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
+    position: static;
+    transform: none;
     width: 44px;
     height: 44px;
     font-size: 26px;
     background: transparent;
     color: #bfeeff;
     text-shadow: 0 0 12px rgba(148, 220, 255, 0.7);
+    margin-left: 4px;
 }
 
 .space-home {
@@ -2547,8 +2546,8 @@ img {
 
     .header-inner {
         height: 76px;
-        gap: 10px;
-        padding: 0 12px 0 62px;
+        gap: 8px;
+        padding: 0 12px;
     }
 
     .main-nav {
